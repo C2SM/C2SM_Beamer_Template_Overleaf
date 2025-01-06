@@ -107,6 +107,7 @@
     \leaders\vrule width \textwidth\vskip0.4pt%
     \vskip0pt%
     \nointerlineskip
+    \vspace{-0.5cm}
 }
 
 % Table of content
@@ -167,7 +168,7 @@
 \setbeamercolor{block title}{fg=bg_color,bg=block}
 \setbeamerfont{block title}{series=\bfseries}
 \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
-\addtobeamertemplate{block begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
+\addtobeamertemplate{block begin}{\vspace{-0.3cm}\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=block}
   \setbeamercolor{itemize subitem}{fg=block}
   \setbeamercolor{itemize subsubitem}{fg=block}
@@ -182,7 +183,7 @@
 % Alert blocks
 \setbeamercolor{block title alerted}{fg=bg_color,bg=alert}
 \setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
-\addtobeamertemplate{block alerted begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
+\addtobeamertemplate{block alerted begin}{\vspace{-0.3cm}\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=alert}
   \setbeamercolor{itemize subitem}{fg=alert}
   \setbeamercolor{itemize subsubitem}{fg=alert}
@@ -197,7 +198,7 @@
 % Example blocks
 \setbeamercolor{block title example}{use=example text,fg=bg_color,bg=example}
 \setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
-\addtobeamertemplate{block example begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
+\addtobeamertemplate{block example begin}{\vspace{-0.3cm}\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=example}
   \setbeamercolor{itemize subitem}{fg=example}
   \setbeamercolor{itemize subsubitem}{fg=example}
