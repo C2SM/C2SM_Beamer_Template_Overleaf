@@ -161,12 +161,13 @@
 
 % Block settings
 % ==============
-\setbeamertemplate{blocks}[shadow=false]
+\setbeamertemplate{blocks}[shadow=false] 
+
 % Normal blocks
 \setbeamercolor{block title}{fg=bg_color,bg=block}
 \setbeamerfont{block title}{series=\bfseries}
 \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!20!bg}
-\addtobeamertemplate{block begin}{}{
+\addtobeamertemplate{block begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=block}
   \setbeamercolor{itemize subitem}{fg=block}
   \setbeamercolor{itemize subsubitem}{fg=block}
@@ -176,10 +177,12 @@
   \setbeamercolor{enumerate subsubitem}{fg=block}
   \setbeamercolor{description item}{fg=block}
 }{}
+\addtobeamertemplate{block end}{}{\endminipage\par\endcenter}
+
 % Alert blocks
 \setbeamercolor{block title alerted}{fg=bg_color,bg=alert}
 \setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!20!bg}
-\addtobeamertemplate{block alerted begin}{}{
+\addtobeamertemplate{block alerted begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=alert}
   \setbeamercolor{itemize subitem}{fg=alert}
   \setbeamercolor{itemize subsubitem}{fg=alert}
@@ -189,10 +192,12 @@
   \setbeamercolor{enumerate subsubitem}{fg=alert}
   \setbeamercolor{description item}{fg=alert}
 }{}
+\addtobeamertemplate{block alerted end}{}{\endminipage\par\endcenter}
+
 % Example blocks
 \setbeamercolor{block title example}{use=example text,fg=bg_color,bg=example}
 \setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!20!bg}
-\addtobeamertemplate{block example begin}{}{
+\addtobeamertemplate{block example begin}{\setlength{\textwidth}{0.98\textwidth}\center\minipage{\textwidth}}{
   \setbeamercolor{itemize item}{fg=example}
   \setbeamercolor{itemize subitem}{fg=example}
   \setbeamercolor{itemize subsubitem}{fg=example}
@@ -202,6 +207,7 @@
   \setbeamercolor{enumerate subsubitem}{fg=example}
   \setbeamercolor{description item}{fg=example}
 }{}
+\addtobeamertemplate{block example end}{}{\endminipage\par\endcenter}
 
 % Background
 % ==========
