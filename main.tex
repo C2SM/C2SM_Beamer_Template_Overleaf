@@ -1,5 +1,8 @@
+% !TEX program = xelatex
+% !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
+% chktex-file 8
 \documentclass[presentation, aspectratio=169]{beamer}
-\usepackage[T1]{fontenc}
+\usepackage{fontspec}
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{wrapfig}
@@ -11,7 +14,6 @@
 \usepackage{capt-of}
 \usepackage{hyperref}
 \usepackage{minted}
-\usepackage{fontspec}
 \usepackage[sfdefault,light]{roboto}
 \usepackage{beamertools}
 \usepackage{tango}
@@ -81,7 +83,7 @@
   \begin{overprint}
     \onslide<2>
 
-    An overprint environment : Blocks replacing this text don't make the following move.
+    An overprint environment: Blocks replacing this text don't make the following move.
     
     \onslide<3>
 
