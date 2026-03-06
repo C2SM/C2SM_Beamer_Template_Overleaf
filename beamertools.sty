@@ -63,7 +63,6 @@
 % Make colorboxes with custom background and itemize colors
 \newenvironment<>{customcolbox}[1]{
   \begingroup
-  \setbeamercolor{boxcolor}{fg=normal text.fg,bg=#1!20!bg}
   \setbeamercolor{itemize item}{fg=#1}
   \setbeamercolor{itemize subitem}{fg=#1}
   \setbeamercolor{itemize subsubitem}{fg=#1}
@@ -72,8 +71,10 @@
   \setbeamercolor{enumerate subitem}{fg=#1}
   \setbeamercolor{enumerate subsubitem}{fg=#1}
   \setbeamercolor{description item}{fg=#1}
-  \begin{beamercolorbox}{boxcolor}}
-  {\end{beamercolorbox} \endgroup}
+  \begin{tcolorbox}[colback=#1!20!bg, colframe=#1!20!bg, colupper=fg,
+      boxrule=0pt, arc=0pt, outer arc=0pt,
+      left=0.5em, right=0.5em, top=0.3em, bottom=0.3em]}
+  {\end{tcolorbox} \endgroup}
 
 % simple tcolorbox choosing one color, itmize and bg colors are derived from it
 \newenvironment<>{framebox}[2][]{
