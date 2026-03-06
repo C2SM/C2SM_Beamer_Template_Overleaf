@@ -151,6 +151,227 @@
 \end{codeblock}
 \end{frame}
 
+\part{Theme Colors}
+
+% Table of contents
+% =================
+\begin{frame}{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+% Color palette
+% =============
+\begin{frame}{Theme Color Palette}
+  The following named colors are available in both dark and light mode:
+  \vspace{0.5em}
+
+  \begin{columns}
+    \begin{column}{0.45\columnwidth}
+      \begin{itemize}
+        \item \textcolor{red}{\rule{1em}{1em}}~\inlinecode{red}
+        \item \textcolor{blue}{\rule{1em}{1em}}~\inlinecode{blue}
+        \item \textcolor{green}{\rule{1em}{1em}}~\inlinecode{green}
+        \item \textcolor{orange}{\rule{1em}{1em}}~\inlinecode{orange}
+        \item \textcolor{yellow}{\rule{1em}{1em}}~\inlinecode{yellow}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \begin{itemize}
+        \item \textcolor{plum}{\rule{1em}{1em}}~\inlinecode{plum}
+        \item \textcolor{cyan}{\rule{1em}{1em}}~\inlinecode{cyan}
+        \item \textcolor{beige}{\rule{1em}{1em}}~\inlinecode{beige}
+        \item \textcolor{petrol}{\rule{1em}{1em}}~\inlinecode{petrol}
+        \item \textcolor{darkgray}{\rule{1em}{1em}}~\inlinecode{darkgray}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5em}
+  Use with: \inlinecode{\\textcolor\{orange\}\{text\}} or \inlinecode{\\color\{green\}}
+\end{frame}
+
+\part{Tango Colors}
+
+% Tango color commands
+% ====================
+\begin{frame}{Tango Color Palette \& Commands}
+  The \inlinecode{tango} package provides named colors and overlay-aware commands.
+
+  \vspace{0.5em}
+  \begin{columns}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Commands:} \inlinecode{\\plum\{depth\}\{text\}}\\[0.4em]
+      \plum{1}{Plum1} \quad \plum{2}{Plum2} \quad \plum{3}{Plum3}\\
+      \skyblue{1}{SkyBlue1} \quad \skyblue{2}{SkyBlue2} \quad \skyblue{3}{SkyBlue3}\\
+      \chameleon{1}{Chameleon1} \quad \chameleon{2}{Chameleon2} \quad \chameleon{3}{Chameleon3}\\
+      \orange{1}{Orange1} \quad \orange{2}{Orange2} \quad \orange{3}{Orange3}\\
+      \butter{1}{Butter1} \quad \butter{2}{Butter2} \quad \butter{3}{Butter3}\\
+      \chocolate{1}{Choc.1} \quad \chocolate{2}{Choc.2} \quad \chocolate{3}{Choc.3}\\
+      \scarletred{1}{Red1} \quad \scarletred{2}{Red2} \quad \scarletred{3}{Red3}\\
+      \aluminium{1}{Alu1} \quad \aluminium{4}{Alu4} \quad \aluminium{6}{Alu6}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Direct color names:}\\[0.4em]
+      \begin{itemize}
+        \item \textcolor{Plum1}{\rule{0.8em}{0.8em}}~\textcolor{Plum2}{\rule{0.8em}{0.8em}}~\textcolor{Plum3}{\rule{0.8em}{0.8em}}~Plum 1--3
+        \item \textcolor{SkyBlue1}{\rule{0.8em}{0.8em}}~\textcolor{SkyBlue2}{\rule{0.8em}{0.8em}}~\textcolor{SkyBlue3}{\rule{0.8em}{0.8em}}~SkyBlue 1--3
+        \item \textcolor{Chameleon1}{\rule{0.8em}{0.8em}}~\textcolor{Chameleon2}{\rule{0.8em}{0.8em}}~\textcolor{Chameleon3}{\rule{0.8em}{0.8em}}~Chameleon 1--3
+        \item \textcolor{Orange1}{\rule{0.8em}{0.8em}}~\textcolor{Orange2}{\rule{0.8em}{0.8em}}~\textcolor{Orange3}{\rule{0.8em}{0.8em}}~Orange 1--3
+        \item \textcolor{ScarletRed1}{\rule{0.8em}{0.8em}}~\textcolor{ScarletRed2}{\rule{0.8em}{0.8em}}~\textcolor{ScarletRed3}{\rule{0.8em}{0.8em}}~ScarletRed 1--3
+        \item \textcolor{Aluminium1}{\rule{0.8em}{0.8em}}~\textcolor{Aluminium3}{\rule{0.8em}{0.8em}}~\textcolor{Aluminium6}{\rule{0.8em}{0.8em}}~Aluminium 1--6
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\part{Box Environments}
+
+% framebox
+% ========
+\begin{frame}{framebox --- single color tcolorbox}
+  \inlinecode{framebox} takes one color and derives border + tinted background from it.
+
+  \vspace{0.5em}
+  \begin{framebox}{green}
+    This is a \inlinecode{framebox} in \inlinecode{green}.
+    \begin{itemize}
+      \item Item colors follow the box color automatically
+      \item Any theme color works: \inlinecode{red}, \inlinecode{blue}, \inlinecode{orange}, \ldots
+    \end{itemize}
+  \end{framebox}
+
+  \vspace{0.5em}
+  \begin{framebox}[title=Optional tcolorbox options]{orange}
+    You can pass extra \inlinecode{tcolorbox} options as the optional first argument.
+  \end{framebox}
+\end{frame}
+
+% customcolbox
+% ============
+\begin{frame}{customcolbox --- colored content box without title}
+  \inlinecode{customcolbox} is like \inlinecode{customblock} but has no title bar.
+
+  \vspace{0.5em}
+  \begin{customcolbox}{cyan}
+    A \inlinecode{customcolbox} in \inlinecode{cyan}: no title, tinted background.
+    \begin{itemize}
+      \item List colors follow the chosen color
+      \item Good for side notes or highlighted content
+    \end{itemize}
+  \end{customcolbox}
+
+  \vspace{0.5em}
+  \begin{customcolbox}{plum}
+    Same box in \inlinecode{plum}.
+  \end{customcolbox}
+\end{frame}
+
+% background & taskproposal
+% =========================
+\begin{frame}{background \& taskproposal environments}
+  \begin{background}
+    \textbf{Background:} fixed Plum3 styled box for contextual information.
+    \begin{itemize}
+      \item Use this to provide background knowledge
+    \end{itemize}
+  \end{background}
+
+  \vspace{0.5em}
+  \begin{taskproposal}
+    \textbf{Task Proposal:} fixed SkyBlue3 styled box for proposed tasks.
+    \begin{itemize}
+      \item Use this to outline work items or proposals
+    \end{itemize}
+  \end{taskproposal}
+\end{frame}
+
+% priority
+% ========
+\begin{frame}{priority environment --- color-coded boxes}
+  \inlinecode{priority\{A\}} through \inlinecode{priority\{D\}} for color-coded priorities.
+
+  \vspace{0.3em}
+  \begin{priority}{A}
+    \textbf{Priority A} --- Chameleon3 (green): must do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{B}
+    \textbf{Priority B} --- Orange3: should do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{C}
+    \textbf{Priority C} --- ScarletRed3: could do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{D}
+    \textbf{Priority D} --- Aluminium6 (grey): won't do for now
+  \end{priority}
+\end{frame}
+
+\part{Arrows \& Graphics}
+
+% beamerarrow
+% ===========
+\begin{frame}{\textbackslash beamerarrow --- inline filled arrow}
+  Use \inlinecode{\\beamerarrow} as an inline directional element:
+
+  \vspace{0.5em}
+  Step 1 \beamerarrow\ Step 2 \beamerarrow\ Step 3
+
+  \vspace{0.5em}
+  \begin{itemize}
+    \item Model run \beamerarrow\ Post-processing \beamerarrow\ Visualization
+    \item Works inline in text or itemize environments
+  \end{itemize}
+\end{frame}
+
+% bgfig
+% =====
+\begin{frame}{bgfig --- background image positioned on page}
+  \bgfig{./Graphics/background_title_page_dark.png}{opacity=0.15}{width=0.5\paperwidth}
+
+  Use \inlinecode{\\bgfig\{file\}\{node options\}\{includegraphics options\}} to place
+  an image relative to the page center without affecting text layout.
+
+  \vspace{0.5em}
+  \begin{itemize}
+    \item \inlinecode{node options}: \inlinecode{xshift=}, \inlinecode{yshift=}, \inlinecode{opacity=}, \ldots
+    \item \inlinecode{includegraphics options}: \inlinecode{width=}, \inlinecode{height=}, \ldots
+    \item Overlay specifications are supported: \inlinecode{\\bgfig<2>\{...\}}
+  \end{itemize}
+\end{frame}
+
+% plainFrameGraphics
+% ==================
+\plainFrameGraphics{./Graphics/background_title_page_dark.png}
+
+\part{Light Mode}
+
+% light mode
+% ==========
+\begin{frame}[fragile]{Light mode}
+  To use \alert{light mode}, omit the \inlinecode{darkmode} option:
+\begin{codeblock}
+\\usetheme\{C2SM\}
+\end{codeblock}
+  All colors, logos, and backgrounds automatically switch to the light palette.
+\end{frame}
+
+% currentdate
+% ===========
+\begin{frame}{\textbackslash currentdate --- automatic date}
+  Use \inlinecode{\\currentdate} to insert today's date automatically as \inlinecode{YYYY-MM-DD}:
+
+  \vspace{0.5em}
+  Today is: \currentdate
+
+  \vspace{0.5em}
+  Useful for the footnote date:
+\begin{codeblock}
+\\def\\mydatefootnote\{\\currentdate\}
+\end{codeblock}
+\end{frame}
+
 \end{document}
 
 %%% Local Variables:
