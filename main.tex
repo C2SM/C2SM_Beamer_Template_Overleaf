@@ -32,7 +32,7 @@
 \usepackage{import}
 \usepackage[justification=centering]{caption}
 \usepackage{appendixnumberbeamer}
-\usepackage{fontawesome}
+\usepackage{fontawesome5}
 \usepackage[skins]{tcolorbox}
 \usepackage[version=4]{mhchem}
 \usepackage{tikz}
@@ -82,6 +82,9 @@
 \defbeamertemplate{subsection in toc}{smalldot}{%
   \leavevmode\leftskip=1.7em\hspace{0.3em}\inserttocsubsection\par%
 }
+
+% Helper for the FontAwesome icon table: icon + command name
+\newcommand{\farow}[2]{\makebox[1.4em]{\large#1}\,{\small\inlinecode{#2}}}
 
 % Show a mini ToC (current section highlighted) at the start of each section
 \AtBeginSection[]{%
@@ -452,6 +455,80 @@
 
   \vspace{0.3em}
   Overlay spec example: \plum{2}<2>{this text is plum-colored only on slide~2}
+\end{frame}
+
+\subsection{Icons (FontAwesome 5)}
+
+\begin{frame}[fragile]{Icons --- Web \& UI / Programming \& Dev}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \textbf{Web \& UI}\\[0.3em]
+      \farow{\faGlobe}{\textbackslash{}faGlobe}\\[0.15em]
+      \farow{\faHome}{\textbackslash{}faHome}\\[0.15em]
+      \farow{\faEnvelope}{\textbackslash{}faEnvelope}\\[0.15em]
+      \farow{\faLink}{\textbackslash{}faLink}\\[0.15em]
+      \farow{\faLock}{\textbackslash{}faLock}\\[0.15em]
+      \farow{\faUser}{\textbackslash{}faUser}\\[0.15em]
+      \farow{\faSearch}{\textbackslash{}faSearch}\\[0.15em]
+      \farow{\faCog}{\textbackslash{}faCog}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Programming \& Dev}\\[0.3em]
+      \farow{\faGithub}{\textbackslash{}faGithub}\\[0.15em]
+      \farow{\faGitlab}{\textbackslash{}faGitlab}\\[0.15em]
+      \farow{\faPython}{\textbackslash{}faPython}\\[0.15em]
+      \farow{\faDocker}{\textbackslash{}faDocker}\\[0.15em]
+      \farow{\faTerminal}{\textbackslash{}faTerminal}\\[0.15em]
+      \farow{\faCode}{\textbackslash{}faCode}\\[0.15em]
+      \farow{\faDatabase}{\textbackslash{}faDatabase}\\[0.15em]
+      \farow{\faBug}{\textbackslash{}faBug}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Coloring icons}\\[0.3em]
+      {\small Use \inlinecode{\\textcolor} or a color group:}\\[0.5em]
+      \textcolor{orange}{\farow{\faGlobe}{\textbackslash{}faGlobe}}\\[0.15em]
+      \textcolor{cyan}{\farow{\faPython}{\textbackslash{}faPython}}\\[0.15em]
+      \textcolor{red}{\farow{\faBug}{\textbackslash{}faBug}}\\[0.15em]
+      \textcolor{green}{\farow{\faCheck}{\textbackslash{}faCheck}}\\[0.5em]
+      {\small Inline: \textcolor{yellow}{\faStar}\,%
+      \textcolor{plum}{\faStar}\,%
+      \textcolor{petrol}{\faStar}}\\[0.4em]
+      \begin{codeblock}
+\\textcolor\{orange\}\{\\faGlobe\}
+\{\\color\{cyan\}\\faPython\}
+      \end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Icons --- Weather \& Climate}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \farow{\faSun}{\textbackslash{}faSun}\\[0.2em]
+      \farow{\faCloud}{\textbackslash{}faCloud}\\[0.2em]
+      \farow{\faCloudSun}{\textbackslash{}faCloudSun}\\[0.2em]
+      \farow{\faCloudRain}{\textbackslash{}faCloudRain}\\[0.2em]
+      \farow{\faCloudShowersHeavy}{\textbackslash{}faCloudShowersHeavy}\\[0.2em]
+      \farow{\faCloudMoonRain}{\textbackslash{}faCloudMoonRain}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \farow{\faSnowflake}{\textbackslash{}faSnowflake}\\[0.2em]
+      \farow{\faBolt}{\textbackslash{}faBolt}\\[0.2em]
+      \farow{\faWind}{\textbackslash{}faWind}\\[0.2em]
+      \farow{\faSmog}{\textbackslash{}faSmog}\\[0.2em]
+      \farow{\faRainbow}{\textbackslash{}faRainbow}\\[0.2em]
+      \farow{\faThermometerHalf}{\textbackslash{}faThermometerHalf}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Colored weather icons}\\[0.4em]
+      \textcolor{yellow}{\farow{\faSun}{\textbackslash{}faSun}}\\[0.2em]
+      \textcolor{cyan}{\farow{\faSnowflake}{\textbackslash{}faSnowflake}}\\[0.2em]
+      \textcolor{blue}{\farow{\faCloudRain}{\textbackslash{}faCloudRain}}\\[0.2em]
+      \textcolor{orange}{\farow{\faBolt}{\textbackslash{}faBolt}}\\[0.2em]
+      \textcolor{petrol}{\farow{\faWind}{\textbackslash{}faWind}}\\[0.2em]
+      \textcolor{red}{\farow{\faThermometerHalf}{\textbackslash{}faThermometerHalf}}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % ═════════════════════════════════════════════════════════════
