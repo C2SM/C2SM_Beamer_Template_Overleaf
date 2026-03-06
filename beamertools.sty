@@ -127,7 +127,13 @@
     \setbeamercolor{enumerate item}{fg=bgcol}
     \setbeamercolor{enumerate subitem}{fg=bgcol}
     \setbeamercolor{enumerate subsubitem}{fg=bgcol}
-    \begin{tcolorbox}[colback=bgcol!15!bg, colframe=bgcol, colupper=fg, boxrule=0pt, frame empty, arc=0pt, outer arc=0pt, #1]}
+    \def\prioritylabel{#2}%
+    \begin{tcolorbox}[enhanced, colback=bgcol!15!bg, colframe=bgcol, colupper=fg, boxrule=0pt,
+        arc=0pt, outer arc=0pt,
+        overlay={\node[circle, fill=bgcol, text=white, font=\bfseries\small,
+                       inner sep=2pt, minimum size=1.6em]
+                       at ([xshift=1.3em]frame.west) {\prioritylabel};},
+        left=2.2em, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newcommand<>{\smileyframe}[2][]{
