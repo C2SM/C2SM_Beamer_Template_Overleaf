@@ -5,6 +5,7 @@
 % chktex-file 13
 % chktex-file 18
 % chktex-file 36
+\PassOptionsToPackage{table}{xcolor}  % load colortbl via xcolor before beamer claims xcolor
 \documentclass[presentation, aspectratio=169]{beamer}
 % --- Fonts & Typography ---
 \usepackage{fontspec}                         % OpenType font selection (LuaLaTeX/XeLaTeX)
@@ -597,6 +598,39 @@
       \begin{codeblock}
 I \emoji{red-heart} LaTeX!
       \end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Tables}
+
+\begin{frame}[fragile]{bluetable --- styled tabular with alternating rows}
+  \inlinecode{bluetable\{col spec\}} wraps a \inlinecode{tabular} with a dark header row and alternating body row shading.
+  Wrap header cell text in \inlinecode{\\textcolor\{white\}\{...\}} for readability on the dark background.
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.44\textwidth}
+      \begin{bluetable}{lcc}
+        \textcolor{white}{\textbf{Model}} &
+        \textcolor{white}{\textbf{Res.}} &
+        \textcolor{white}{\textbf{Domain}} \\
+        COSMO & 2.2\,km & Alpine \\
+        ICON  & 13\,km  & Europe \\
+        ECMWF & 9\,km   & Global \\
+      \end{bluetable}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+\begin{codeblock}
+\\begin\{bluetable\}\{lcc\}
+  \\textcolor\{white\}\{\\textbf\{Model\}\} &
+  \\textcolor\{white\}\{\\textbf\{Res.\}\} &
+  \\textcolor\{white\}\{\\textbf\{Domain\}\} \\\\
+  COSMO & 2.2\\,km & Alpine \\\\
+  ICON  & 13\\,km  & Europe \\\\
+  ECMWF & 9\\,km   & Global \\\\
+\\end\{bluetable\}
+\end{codeblock}
     \end{column}
   \end{columns}
 \end{frame}

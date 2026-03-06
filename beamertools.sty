@@ -4,6 +4,7 @@
 
 \RequirePackage{xkeyval}
 \RequirePackage[export]{adjustbox} % graphicx is also included
+\RequirePackage{colortbl}          % \rowcolor, \rowcolors, \columncolor
 \RequirePackage{tikz}
 \usetikzlibrary{shapes.arrows}
 \usetikzlibrary{calc,math,positioning,fadings}
@@ -179,4 +180,29 @@
 % Compact small-dot ToC subsection template
 \defbeamertemplate{subsection in toc}{smalldot}{%
   \leavevmode\leftskip=1.7em\hspace{0.3em}\inserttocsubsection\par%
+}
+
+%% Tables
+\newcommand{\textrow}[2]{\textcolor{#1}{#2}}
+
+% Define colors
+\definecolor{BlueHeader}{HTML}{336699}  % darker header so white text is visible
+\definecolor{BlueRowA}{HTML}{43525E}
+\definecolor{BlueRowB}{HTML}{4B5C69}
+
+% New environment: bluetable
+\newenvironment{bluetable}[1] % #1 = column specification
+{
+    \renewcommand{\arraystretch}{1.25} % increase row height (1.0 = default)
+    % Apply alternating row colors to body
+    \rowcolors{2}{BlueRowA}{BlueRowB} 
+    \begingroup
+
+    \begin{tabular}{#1} 
+    \rowcolor{BlueHeader} % header background
+}
+{
+    \end{tabular} 
+    \endgroup
+    \rowcolors{2}{}{} % reset row colors 
 }
