@@ -67,104 +67,77 @@
 
 \maketitle
 
-\part{First part}
-
-\begin{frame}{The frame title}
-  \note{note
-    Talk no more than 1 minute.}
-
-  \begin{block}<1->{A normal block}
-    \begin{itemize}
-    \item Hello World
-    \item The 2 following blocks are in an \inlinecode{overprint} environment
-    \end{itemize}
-  \end{block}
-
-  \begin{overprint}
-    \onslide<2>
-
-    An overprint environment: Blocks replacing this text don't make the following move.
-    
-    \onslide<3>
-
-    \begin{customblock}<2->[bgcolor=plum, itcolor=plum]{A custom color block with columns}
-      \begin{columns}
-        \begin{column}{0.6\columnwidth}
-          Some definitions:
-          \begin{description}
-          \item[{toto}] some blabla
-          \item[{tata}] another blabla
-          \end{description}
-        \end{column}
-
-        \begin{column}{0.3\columnwidth}
-          enumerate env:
-          \begin{enumerate}
-          \item something
-          \item Something else
-          \end{enumerate}
-        \end{column}
-      \end{columns}
-    \end{customblock}
-
-    \onslide<4->
-
-    \begin{exampleblock}{An example block}
-      Hello
-    \end{exampleblock}
-  \end{overprint}
-
-  \onslide<2->
-  \begin{enumerate}
-  \item first item
-  \item second item
-    \setcounter{enumi}{5}
-  \item Changing enum counter
-  \end{enumerate}
-\end{frame}
-
-\part{Second part}
-
-\begin{frame}{Frame title 2}
-  Some blabla
-  \begin{itemize}
-  \item super exciting results
-  \item even more awesome
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{The frame title over 2 lines \\  logo still works!}
-  \begin{alertblock}{An alerted block}
-    \begin{enumerate}
-    \item toto
-    \item tata
-    \item tutu
-    \end{enumerate}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Dark mode}
-  You can compile in \alert{dark mode} using
-\begin{codeblock}
-\\usetheme\alert{[darkmode]}\{C2SM\}
-\end{codeblock}
-\end{frame}
-
-\part{Theme Colors}
-
-% Table of contents
-% =================
+% ─────────────────────────────────────────────────────────────
+% Table of Contents
+% ─────────────────────────────────────────────────────────────
 \begin{frame}{Table of Contents}
   \tableofcontents
 \end{frame}
 
-% Color palette
-% =============
-\begin{frame}{Theme Color Palette}
-  The following named colors are available in both dark and light mode:
-  \vspace{0.5em}
+% ═════════════════════════════════════════════════════════════
+\part{Theme Setup}
+% ═════════════════════════════════════════════════════════════
 
+\section{Dark \& Light Mode}
+
+\begin{frame}[fragile]{Dark \& Light Mode}
+  Switch between dark and light mode by passing (or omitting) the \inlinecode{darkmode} option:
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Dark mode} (current):
+\begin{codeblock}
+\\usetheme\alert{[darkmode]}\{C2SM\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Light mode}:
+\begin{codeblock}
+\\usetheme\{C2SM\}
+\end{codeblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4em}
+  All colors, logos, and backgrounds switch automatically between the two palettes.
+\end{frame}
+
+\section{Date \& Footer}
+
+\begin{frame}[fragile]{Date \& Footer}
+  The footer date is controlled by \inlinecode{\\mydatefootnote} and the title date by \inlinecode{\\mydate}.
+  Use \inlinecode{\\currentdate} to insert today as \inlinecode{YYYY-MM-DD} automatically:
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \textbf{Fixed dates:}
+\begin{codeblock}
+\\def\\mydate\{December 24, 2022\}
+\\def\\mydatefootnote\{2022-12-24\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Automatic date:}
+\begin{codeblock}
+\\def\\mydatefootnote\{\\currentdate\}
+\end{codeblock}
+      Today: \currentdate
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\part{Colors}
+% ═════════════════════════════════════════════════════════════
+
+\section{Theme Color Palette}
+
+\begin{frame}{Theme Color Palette}
+  Named colors defined by the theme, adapting automatically to dark/light mode:
+
+  \vspace{0.4em}
   \begin{columns}
     \begin{column}{0.45\columnwidth}
       \begin{itemize}
@@ -186,20 +159,18 @@
     \end{column}
   \end{columns}
 
-  \vspace{0.5em}
-  Use with: \inlinecode{\\textcolor\{orange\}\{text\}} or \inlinecode{\\color\{green\}}
+  \vspace{0.4em}
+  Use with \inlinecode{\\textcolor\{orange\}\{text\}} or \inlinecode{\\color\{green\}}.
 \end{frame}
 
-\part{Tango Colors}
+\section{Tango Colors}
 
-% Tango color commands
-% ====================
 \begin{frame}{Tango Color Palette \& Commands}
-  The \inlinecode{tango} package provides named colors and overlay-aware commands.
+  The \inlinecode{tango} package provides fixed named colors and overlay-aware commands.
 
-  \vspace{0.5em}
+  \vspace{0.3em}
   \begin{columns}
-    \begin{column}{0.45\columnwidth}
+    \begin{column}{0.48\columnwidth}
       \textbf{Commands:} \inlinecode{\\plum\{depth\}\{text\}}\\[0.4em]
       \plum{1}{Plum1} \quad \plum{2}{Plum2} \quad \plum{3}{Plum3}\\
       \skyblue{1}{SkyBlue1} \quad \skyblue{2}{SkyBlue2} \quad \skyblue{3}{SkyBlue3}\\
@@ -224,71 +195,127 @@
   \end{columns}
 \end{frame}
 
-\part{Box Environments}
+% ═════════════════════════════════════════════════════════════
+\part{Blocks \& Boxes}
+% ═════════════════════════════════════════════════════════════
 
-% framebox
-% ========
-\begin{frame}{framebox --- single color tcolorbox}
-  \inlinecode{framebox} takes one color and derives border + tinted background from it.
+\section{Standard Blocks}
 
-  \vspace{0.5em}
-  \begin{framebox}{green}
-    This is a \inlinecode{framebox} in \inlinecode{green}.
+\begin{frame}{Standard Blocks}
+  Three built-in block types whose colors follow dark/light mode automatically:
+
+  \vspace{0.3em}
+  \begin{block}{block --- general information}
+    Use for neutral content. Item bullet colors match the block accent color.
     \begin{itemize}
-      \item Item colors follow the box color automatically
-      \item Any theme color works: \inlinecode{red}, \inlinecode{blue}, \inlinecode{orange}, \ldots
+      \item Hello World
     \end{itemize}
-  \end{framebox}
+  \end{block}
 
-  \vspace{0.5em}
-  \begin{framebox}[title=Optional tcolorbox options]{orange}
-    You can pass extra \inlinecode{tcolorbox} options as the optional first argument.
-  \end{framebox}
+  \vspace{0.3em}
+  \begin{alertblock}{alertblock --- warnings or key points}
+    Use to draw attention to important information.
+  \end{alertblock}
+
+  \vspace{0.3em}
+  \begin{exampleblock}{exampleblock --- examples or results}
+    Use for examples, code output, or tips.
+  \end{exampleblock}
 \end{frame}
 
-% customcolbox
-% ============
-\begin{frame}{customcolbox --- colored content box without title}
-  \inlinecode{customcolbox} is like \inlinecode{customblock} but has no title bar.
+\section{Custom Blocks \& Overlays}
 
-  \vspace{0.5em}
-  \begin{customcolbox}{cyan}
-    A \inlinecode{customcolbox} in \inlinecode{cyan}: no title, tinted background.
-    \begin{itemize}
-      \item List colors follow the chosen color
-      \item Good for side notes or highlighted content
-    \end{itemize}
-  \end{customcolbox}
+\begin{frame}{customblock --- custom color, overlays \& overprint}
+  \inlinecode{customblock} accepts \inlinecode{bgcolor=} and \inlinecode{itcolor=} and supports overlay specs.
 
-  \vspace{0.5em}
-  \begin{customcolbox}{plum}
-    Same box in \inlinecode{plum}.
-  \end{customcolbox}
+  \begin{block}<1->{Visible from slide 1}
+    Always visible. The \inlinecode{overprint} below replaces content without shifting layout.
+  \end{block}
+
+  \begin{overprint}
+    \onslide<2>
+    \vspace{0.3em}
+    Plain text on slide~2 inside \inlinecode{overprint} --- the block above does not move.
+
+    \onslide<3->
+    \begin{customblock}<3->[bgcolor=plum, itcolor=plum]{customblock with bgcolor=plum (slide 3+)}
+      \begin{columns}
+        \begin{column}{0.55\columnwidth}
+          \begin{description}
+            \item[bgcolor] sets title and background tint color
+            \item[itcolor] sets bullet/enumerate color
+          \end{description}
+        \end{column}
+        \begin{column}{0.35\columnwidth}
+          \begin{enumerate}
+            \item red, blue, green
+            \item orange, plum, cyan\ldots
+          \end{enumerate}
+        \end{column}
+      \end{columns}
+    \end{customblock}
+  \end{overprint}
 \end{frame}
 
-% background & taskproposal
-% =========================
-\begin{frame}{background \& taskproposal environments}
+\section{Color Boxes}
+
+\begin{frame}{framebox \& customcolbox}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \textbf{\inlinecode{framebox\{color\}}} --- bordered tcolorbox:
+      \vspace{0.3em}
+      \begin{framebox}{green}
+        Border + tinted background from one color.
+        \begin{itemize}
+          \item Bullet colors follow automatically
+        \end{itemize}
+      \end{framebox}
+      \vspace{0.3em}
+      \begin{framebox}[title=With extra tcolorbox options]{orange}
+        Pass extra tcolorbox options as the first optional argument.
+      \end{framebox}
+    \end{column}
+    \begin{column}{0.48\columnwidth}
+      \textbf{\inlinecode{customcolbox\{color\}}} --- titleless box:
+      \vspace{0.3em}
+      \begin{customcolbox}{cyan}
+        No title bar, tinted background; good for side notes or highlights.
+        \begin{itemize}
+          \item Bullet colors follow automatically
+        \end{itemize}
+      \end{customcolbox}
+      \vspace{0.3em}
+      \begin{customcolbox}{plum}
+        Same environment in \inlinecode{plum}.
+      \end{customcolbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{background \& taskproposal --- preset boxes}
+  Fixed-color boxes for recurring use cases:
+
+  \vspace{0.3em}
   \begin{background}
-    \textbf{Background:} fixed Plum3 styled box for contextual information.
+    \textbf{background} --- Plum3 box for contextual information.
     \begin{itemize}
-      \item Use this to provide background knowledge
+      \item Use this to provide background knowledge before the main content
     \end{itemize}
   \end{background}
 
-  \vspace{0.5em}
+  \vspace{0.4em}
   \begin{taskproposal}
-    \textbf{Task Proposal:} fixed SkyBlue3 styled box for proposed tasks.
+    \textbf{taskproposal} --- SkyBlue3 box for proposed tasks or action items.
     \begin{itemize}
-      \item Use this to outline work items or proposals
+      \item Use this to outline work items or next steps
     \end{itemize}
   \end{taskproposal}
 \end{frame}
 
-% priority
-% ========
-\begin{frame}{priority environment --- color-coded boxes}
-  \inlinecode{priority\{A\}} through \inlinecode{priority\{D\}} for color-coded priorities.
+\section{Priority Boxes}
+
+\begin{frame}{priority --- color-coded priority levels}
+  \inlinecode{\\begin\{priority\}\{A|B|C|D\}} maps to four color levels:
 
   \vspace{0.3em}
   \begin{priority}{A}
@@ -308,69 +335,151 @@
   \end{priority}
 \end{frame}
 
-\part{Arrows \& Graphics}
+% ═════════════════════════════════════════════════════════════
+\part{Lists \& Text}
+% ═════════════════════════════════════════════════════════════
 
-% beamerarrow
-% ===========
-\begin{frame}{\textbackslash beamerarrow --- inline filled arrow}
-  Use \inlinecode{\\beamerarrow} as an inline directional element:
+\section{Lists \& Overlays}
 
-  \vspace{0.5em}
-  Step 1 \beamerarrow\ Step 2 \beamerarrow\ Step 3
+\begin{frame}{Lists}
+  \begin{columns}
+    \begin{column}{0.3\columnwidth}
+      \textbf{itemize:}
+      \begin{itemize}
+        \item First
+        \item Second
+          \begin{itemize}
+            \item Sub-item
+          \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.3\columnwidth}
+      \textbf{enumerate:}
+      \begin{enumerate}
+        \item First
+        \item Second
+          \setcounter{enumi}{5}
+        \item Skipped to 6
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.3\columnwidth}
+      \textbf{description:}
+      \begin{description}
+        \item[Term A] explanation
+        \item[Term B] explanation
+      \end{description}
+    \end{column}
+  \end{columns}
 
-  \vspace{0.5em}
+  \vspace{0.4em}
+  Use \inlinecode{\\onslide<2->} or \inlinecode{\\item<2->} for incremental reveal:
   \begin{itemize}
-    \item Model run \beamerarrow\ Post-processing \beamerarrow\ Visualization
-    \item Works inline in text or itemize environments
+    \item<2-> This item appears on slide~2
+    \item<3-> This item appears on slide~3
   \end{itemize}
+  \note{Presenter notes go here with \\note\{...\} inside the frame.}
 \end{frame}
 
-% bgfig
-% =====
-\begin{frame}{bgfig --- background image positioned on page}
+\section{Inline Elements \& Annotations}
+
+\begin{frame}{Inline Elements \& Annotations}
+  \begin{itemize}
+    \item \inlinecode{\\inlinecode\{text\}} --- styled monospace box: \inlinecode{example}
+    \item \inlinecode{\\alert\{text\}} --- \alert{highlighted in the alert color}
+    \item \inlinecode{\\beamerarrow} --- inline arrow: Step 1 \beamerarrow\ Step 2 \beamerarrow\ Step 3
+  \end{itemize}
+
+  \vspace{0.4em}
+  \textbf{Tango text color commands} (overlay-aware): \inlinecode{\\plum\{depth\}\{text\}}
+
+  \vspace{0.3em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \plum{2}{$\backslash$plum\{2\}\{...\}} \quad
+      \skyblue{2}{$\backslash$skyblue\{2\}\{...\}}\\[0.3em]
+      \chameleon{2}{$\backslash$chameleon\{2\}\{...\}} \quad
+      \orange{2}{$\backslash$orange\{2\}\{...\}}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \butter{2}{$\backslash$butter\{2\}\{...\}} \quad
+      \chocolate{2}{$\backslash$chocolate\{2\}\{...\}}\\[0.3em]
+      \scarletred{2}{$\backslash$scarletred\{2\}\{...\}} \quad
+      \aluminium{4}{$\backslash$aluminium\{4\}\{...\}}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  Overlay spec example: \plum{2}<2>{this text is plum-colored only on slide~2}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\part{Code}
+% ═════════════════════════════════════════════════════════════
+
+\section{Code Blocks}
+
+\begin{frame}[fragile]{Code Environments}
+  Two environments for displaying code:
+
+  \vspace{0.4em}
+  \textbf{\inlinecode{codeblock}} --- semi-verbatim with \inlinecode{\\alert} markup support:
+\begin{codeblock}
+def hello():
+    \alert{print("Hello, world!")}  % this line is highlighted
+\end{codeblock}
+
+  \vspace{0.4em}
+  \textbf{\inlinecode{minted}} --- syntax-highlighted (requires \inlinecode{-shell-escape}):
+  \begin{minted}{python}
+def hello():
+    print("Hello, world!")
+  \end{minted}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\part{Graphics \& Layout}
+% ═════════════════════════════════════════════════════════════
+
+\section{Columns \& Multi-Line Titles}
+
+\begin{frame}{The frame title over 2 lines \\ logo still works!}
+  Wrap long frame titles with \inlinecode{\\\\}. Logos and footer stay in place.
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \begin{block}{Left column}
+        Use \inlinecode{columns} + \inlinecode{column} to split content side by side.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\columnwidth}
+      \begin{block}{Right column}
+        Column widths are set with \inlinecode{0.48\\columnwidth}.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Background Images}
+
+\begin{frame}{bgfig --- overlay image on page}
   \bgfig{./Graphics/background_title_page_dark.png}{opacity=0.15}{width=0.5\paperwidth}
 
-  Use \inlinecode{\\bgfig\{file\}\{node options\}\{includegraphics options\}} to place
-  an image relative to the page center without affecting text layout.
+  \inlinecode{\\bgfig\{file\}\{node opts\}\{img opts\}} places an image relative to the page
+  center without affecting text layout.
 
-  \vspace{0.5em}
+  \vspace{0.4em}
   \begin{itemize}
-    \item \inlinecode{node options}: \inlinecode{xshift=}, \inlinecode{yshift=}, \inlinecode{opacity=}, \ldots
-    \item \inlinecode{includegraphics options}: \inlinecode{width=}, \inlinecode{height=}, \ldots
-    \item Overlay specifications are supported: \inlinecode{\\bgfig<2>\{...\}}
+    \item \inlinecode{node opts}: \inlinecode{xshift=5cm}, \inlinecode{yshift=-2cm}, \inlinecode{opacity=0.3}
+    \item \inlinecode{img opts}: \inlinecode{width=0.5\\paperwidth}, \inlinecode{height=0.4\\paperheight}
+    \item Overlay specs supported: \inlinecode{\\bgfig<2>\{...\}\{...\}\{...\}}
   \end{itemize}
 \end{frame}
 
-% plainFrameGraphics
-% ==================
+\section{Full-Frame Graphics}
+
+% \plainFrameGraphics inserts a plain frame (no chrome) with the image filling the slide
 \plainFrameGraphics{./Graphics/background_title_page_dark.png}
-
-\part{Light Mode}
-
-% light mode
-% ==========
-\begin{frame}[fragile]{Light mode}
-  To use \alert{light mode}, omit the \inlinecode{darkmode} option:
-\begin{codeblock}
-\\usetheme\{C2SM\}
-\end{codeblock}
-  All colors, logos, and backgrounds automatically switch to the light palette.
-\end{frame}
-
-% currentdate
-% ===========
-\begin{frame}{\textbackslash currentdate --- automatic date}
-  Use \inlinecode{\\currentdate} to insert today's date automatically as \inlinecode{YYYY-MM-DD}:
-
-  \vspace{0.5em}
-  Today is: \currentdate
-
-  \vspace{0.5em}
-  Useful for the footnote date:
-\begin{codeblock}
-\\def\\mydatefootnote\{\\currentdate\}
-\end{codeblock}
-\end{frame}
 
 \end{document}
 
