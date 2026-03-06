@@ -98,7 +98,7 @@
     \setbeamercolor{enumerate item}{fg=Plum3}
     \setbeamercolor{enumerate subitem}{fg=Plum3}
     \setbeamercolor{enumerate subsubitem}{fg=Plum3}
-    \begin{tcolorbox}[colback=Plum3!15!bg, boxrule=0.5pt, arc=0pt, outer arc=0pt, left=0pt, right=1pt, top=1pt, bottom=1pt, #1]}
+    \begin{tcolorbox}[colback=Plum3!15!bg, colframe=Plum3, colupper=fg, boxrule=0.5pt, arc=0pt, outer arc=0pt, left=0pt, right=1pt, top=1pt, bottom=1pt, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newenvironment<>{taskproposal}[1][]{
@@ -110,14 +110,14 @@
     \setbeamercolor{enumerate item}{fg=SkyBlue3}
     \setbeamercolor{enumerate subitem}{fg=SkyBlue3}
     \setbeamercolor{enumerate subsubitem}{fg=SkyBlue3}
-    \begin{tcolorbox}[colback=SkyBlue3!15!bg, colframe=SkyBlue3, #1]}
+    \begin{tcolorbox}[colback=SkyBlue3!15!bg, colframe=SkyBlue3, colupper=fg, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newenvironment<>{priority}[2][]{
     \ifthenelse{\equal{#2}{A}}{\colorlet{bgcol}{Chameleon3}}{
         \ifthenelse{\equal{#2}{B}}{\colorlet{bgcol}{Orange3}}{
             \ifthenelse{\equal{#2}{C}}{\colorlet{bgcol}{ScarletRed3}}{
-                \ifthenelse{\equal{#2}{D}}{\colorlet{bgcol}{Aluminium6}}{
+                \ifthenelse{\equal{#2}{D}}{\colorlet{bgcol}{Aluminium3}}{
                     \colorlet{bgcol}{C2SM_petrol_blue}}}}}
     \begingroup
     \setbeamercolor{itemize item}{fg=bgcol}
@@ -127,7 +127,7 @@
     \setbeamercolor{enumerate item}{fg=bgcol}
     \setbeamercolor{enumerate subitem}{fg=bgcol}
     \setbeamercolor{enumerate subsubitem}{fg=bgcol}
-    \begin{tcolorbox}[colback=bgcol!15!bg, boxrule=0pt, frame empty, arc=0pt, outer arc=0pt, #1]}
+    \begin{tcolorbox}[colback=bgcol!15!bg, colframe=bgcol, colupper=fg, boxrule=0pt, frame empty, arc=0pt, outer arc=0pt, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newcommand<>{\smileyframe}[2][]{
