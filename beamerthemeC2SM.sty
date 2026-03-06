@@ -324,3 +324,8 @@
       {\usebeamerfont{part title}\usebeamercolor{part title}\insertpart\par}%
   \end{frame}
 }
+
+% Apply theme URL color to hyperlinks
+\AtBeginDocument{%
+  \hypersetup{colorlinks=true, linkcolor=url, urlcolor=url}%
+}

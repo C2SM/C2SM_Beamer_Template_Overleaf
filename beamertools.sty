@@ -6,7 +6,9 @@
 \RequirePackage[export]{adjustbox} % graphicx is also included
 \RequirePackage{tikz}
 \usetikzlibrary{shapes.arrows}
+\usetikzlibrary{calc,math,positioning,fadings}
 \RequirePackage[skins]{tcolorbox}
+\RequirePackage{fontawesome5}
 
 % Draw nice "imply"-like arrows
 \newcommand{\beamerarrow}{\tikz{\node[single arrow,scale=0.3,
@@ -155,3 +157,26 @@
 \newenvironment{codeblock}
 {\colorlet{framecol}{normal text.fg}\begin{tcolorbox}[standard jigsaw, colback=framecol, colframe=framecol, opacityback=0.07, boxsep=0.5em, left=0pt, right=0pt, bottom=0pt, top=0pt, boxrule=0.5pt]\color{framecol}\scriptsize\begin{semiverbatim}}
 {\end{semiverbatim}\end{tcolorbox}}
+
+% Helper for icon tables: icon + command name
+\newcommand{\farow}[2]{\makebox[1.4em]{\large#1}\,{\small\inlinecode{#2}}}
+
+% Helper for emoji tables: emoji + CLDR name as inlinecode (requires emoji package)
+\newcommand{\emorow}[1]{\makebox[1.6em]{\emoji{#1}}\,{\small\inlinecode{#1}}}
+
+% Compact circular ToC section number template
+\defbeamertemplate{section in toc}{smallcircle}{%
+  \leavevmode%
+  \usebeamerfont*{section number projected}%
+  \usebeamercolor{section number projected}%
+  \tikz[baseline=(char.base), inner sep=0pt, outer sep=0pt]{%
+    \node[circle, fill=bg, text=fg, inner sep=1.5pt,%
+          font=\footnotesize\bfseries, minimum size=1.4em] (char) {\inserttocsectionnumber};%
+  }\hspace{0.3em}%
+  \inserttocsection\par%
+}
+
+% Compact small-dot ToC subsection template
+\defbeamertemplate{subsection in toc}{smalldot}{%
+  \leavevmode\leftskip=1.7em\hspace{0.3em}\inserttocsubsection\par%
+}

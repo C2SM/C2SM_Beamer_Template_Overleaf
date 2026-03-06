@@ -33,24 +33,9 @@
 \usepackage{import}
 \usepackage[justification=centering]{caption}
 \usepackage{appendixnumberbeamer}
-\usepackage{fontawesome5}
 \usepackage{emoji}
 \setemojifont{Noto Color Emoji}
-\usepackage[skins]{tcolorbox}
 \usepackage[version=4]{mhchem}
-\usepackage{tikz}
-\usetikzlibrary{math}
-\usetikzlibrary{calc}
-\usetikzlibrary{positioning}
-\usetikzlibrary{fadings}
-
-% Set hyperlink color
-% (url color defined in beamerthemeC2SM.sty, chnages with dark/light mode)
-\hypersetup{
-  colorlinks=true,
-  linkcolor=url, % choose the color you want
-  urlcolor=url
-}
 
 % Set dates for title and footnote
 \def\mydate{March 06, 2026}
@@ -69,28 +54,6 @@
   pdfcreator={}, 
   pdflang={English}
 }
-
-% Compact inline circle template for ToC slides (avoids the oversized llap circles)
-\defbeamertemplate{section in toc}{smallcircle}{%
-  \leavevmode%
-  \usebeamerfont*{section number projected}%
-  \usebeamercolor{section number projected}%
-  \tikz[baseline=(char.base), inner sep=0pt, outer sep=0pt]{%
-    \node[circle, fill=bg, text=fg, inner sep=1.5pt,%
-          font=\footnotesize\bfseries, minimum size=1.4em] (char) {\inserttocsectionnumber};%
-  }\hspace{0.3em}%
-  \inserttocsection\par%
-}
-
-\defbeamertemplate{subsection in toc}{smalldot}{%
-  \leavevmode\leftskip=1.7em\hspace{0.3em}\inserttocsubsection\par%
-}
-
-% Helper for the FontAwesome icon table: icon + command name
-\newcommand{\farow}[2]{\makebox[1.4em]{\large#1}\,{\small\inlinecode{#2}}}
-
-% Helper for the emoji table: emoji + name as inlinecode
-\newcommand{\emorow}[1]{\makebox[1.6em]{\emoji{#1}}\,{\small\inlinecode{#1}}}
 
 % Show a mini ToC (current section highlighted) at the start of each section
 \AtBeginSection[]{%
