@@ -463,6 +463,41 @@
   Overlay spec example: \plum{2}<2>{this text is plum-colored only on slide~2}
 \end{frame}
 
+\subsection{Hyperlinks \& URLs}
+
+\begin{frame}[fragile]{Hyperlinks \& URLs}
+  Two commands for linking, both using the \inlinecode{url} color defined by the theme:
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{\inlinecode{\\url\{...\}}} --- display a raw URL:
+      \vspace{0.3em}
+\begin{codeblock}
+\\url\{https://c2sm.ethz.ch\}
+\end{codeblock}
+      \vspace{0.3em}
+      Result: \url{https://c2sm.ethz.ch}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\inlinecode{\\href\{url\}\{text\}}} --- link text to a URL:
+      \vspace{0.3em}
+\begin{codeblock}
+\\href\{https://c2sm.ethz.ch\}\{C2SM website\}
+\end{codeblock}
+      \vspace{0.3em}
+      Result: \href{https://c2sm.ethz.ch}{C2SM website}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5em}
+  Link colors are set in the preamble via \inlinecode{\\hypersetup}:
+\begin{codeblock}
+\\hypersetup\{colorlinks=true, linkcolor=url, urlcolor=url\}
+\end{codeblock}
+  The \inlinecode{url} color switches automatically with dark/light mode.
+\end{frame}
+
 \subsection{Icons (FontAwesome 5)}
 
 \begin{frame}[fragile]{Icons --- Web \& UI / Programming \& Dev}
