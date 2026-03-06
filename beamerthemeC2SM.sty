@@ -327,5 +327,9 @@
 
 % Apply theme URL color to hyperlinks
 \AtBeginDocument{%
-  \hypersetup{colorlinks=true, linkcolor=url, urlcolor=url}%
+  \if@doDarkMode
+    \hypersetup{urlcolor=[HTML]{6AB0F5}, linkcolor=[HTML]{6AB0F5}}%
+  \else
+    \hypersetup{urlcolor=[HTML]{1558A6}, linkcolor=[HTML]{1558A6}}%
+  \fi
 }
