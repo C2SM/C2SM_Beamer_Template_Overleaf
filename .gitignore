@@ -2,6 +2,7 @@
 *.aux
 *.log
 *.out
+*.pdf
 *.toc
 *.lof
 *.lot
