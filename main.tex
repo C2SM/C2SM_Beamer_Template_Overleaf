@@ -6,36 +6,58 @@
 % chktex-file 18
 % chktex-file 36
 \documentclass[presentation, aspectratio=169]{beamer}
-\usepackage{fontspec}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage[customcolors]{hf-tikz}
-\usepackage{amssymb}
-\usepackage{capt-of}
-\usepackage{hyperref}
-\usepackage{bookmark}
-\usepackage{minted}
-\usepackage[sfdefault,light]{roboto}
-\usepackage{beamertools}
-\usepackage{tango}
-\usepackage{setspace}
-\usepackage{pdfpages}
-\usepackage{booktabs}
-\usepackage{caption}
-\usepackage{tabularx,ragged2e}
-\usepackage{xcolor}
-\usepackage{pifont}
-\usepackage{array}
-\usepackage{import}
-\usepackage[justification=centering]{caption}
-\usepackage{appendixnumberbeamer}
-\usepackage{emoji}
-\setemojifont{Noto Color Emoji}
-\usepackage[version=4]{mhchem}
+% --- Fonts & Typography ---
+\usepackage{fontspec}                         % OpenType font selection (LuaLaTeX/XeLaTeX)
+\usepackage[sfdefault,light]{roboto}          % Roboto sans-serif as default font
+\usepackage{setspace}                         % Line-spacing control
+
+% --- Math & Chemistry ---
+\usepackage{amsmath}                          % Math environments (align, gather, …)
+\usepackage{amssymb}                          % AMS math symbols
+\usepackage[version=4]{mhchem}                % Chemical formulae (\ce{H2O})
+
+% --- Graphics & Figures ---
+\usepackage{graphicx}                         % \includegraphics
+\usepackage{wrapfig}                          % Text wrapped around figures
+\usepackage{rotating}                         % Rotate text and figures
+\usepackage{pdfpages}                         % Include external PDF pages
+\usepackage{capt-of}                          % \captionof outside float environments
+\usepackage[justification=centering]{caption} % Caption formatting and alignment
+
+% --- Tables ---
+\usepackage{longtable}                        % Tables spanning multiple pages
+\usepackage{booktabs}                         % Professional rules (\toprule, \midrule, …)
+\usepackage{tabularx,ragged2e}                % Flexible-width columns + ragged text
+\usepackage{array}                            % Extended column types for tabular/array
+
+% --- Colors & Symbols ---
+\usepackage{xcolor}                           % Extended color support
+\usepackage{pifont}                           % Dingbat symbols (\ding{51} = ✓)
+
+% --- TikZ ---
+\usepackage[customcolors]{hf-tikz}            % Highlight formula parts with TikZ
+
+% --- Hyperlinks & PDF Metadata ---
+\usepackage{hyperref}                         % Hyperlinks and PDF metadata
+\usepackage{bookmark}                         % Enhanced PDF bookmarks
+
+% --- Code Listing ---
+\usepackage{minted}                           % Syntax-highlighted code (requires -shell-escape)
+
+% --- Beamer Utilities ---
+\usepackage{appendixnumberbeamer}             % Correct slide numbering in appendix
+
+% --- Project-Local Packages ---
+\usepackage{beamertools}                      % Custom beamer commands (boxes, icons, …)
+\usepackage{tango}                            % Tango color palette
+
+% --- Misc / Layout ---
+\usepackage[normalem]{ulem}                   % Strikethrough (\sout) and underline variants
+\usepackage{import}                           % \import for relative path file inclusion
+
+% --- Emoji (LuaLaTeX only) ---
+\usepackage{emoji}                            % Unicode emoji via \emoji{name}
+\setemojifont{Noto Color Emoji}               % Emoji font (requires noto-fonts-extra)
 
 % Set dates for title and footnote
 \def\mydate{March 06, 2026}
