@@ -1,7 +1,8 @@
-% !TEX program = xelatex
+% !TEX program = lualatex
 % !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
 % chktex-file 8
 % chktex-file 11
+% chktex-file 13
 % chktex-file 18
 % chktex-file 36
 \documentclass[presentation, aspectratio=169]{beamer}
@@ -33,6 +34,8 @@
 \usepackage[justification=centering]{caption}
 \usepackage{appendixnumberbeamer}
 \usepackage{fontawesome5}
+\usepackage{emoji}
+\setemojifont{Noto Color Emoji}
 \usepackage[skins]{tcolorbox}
 \usepackage[version=4]{mhchem}
 \usepackage{tikz}
@@ -85,6 +88,9 @@
 
 % Helper for the FontAwesome icon table: icon + command name
 \newcommand{\farow}[2]{\makebox[1.4em]{\large#1}\,{\small\inlinecode{#2}}}
+
+% Helper for the emoji table: emoji + name as inlinecode
+\newcommand{\emorow}[1]{\makebox[1.6em]{\emoji{#1}}\,{\small\inlinecode{#1}}}
 
 % Show a mini ToC (current section highlighted) at the start of each section
 \AtBeginSection[]{%
@@ -531,6 +537,47 @@
   \end{columns}
 \end{frame}
 
+\subsection{Emojis}
+
+\begin{frame}[fragile]{Emojis}
+  Load \inlinecode{\\usepackage\{emoji\}} (LuaLaTeX only).
+  Use \inlinecode{\\emoji\{name\}} with Unicode CLDR short names (hyphens for spaces):
+
+  \vspace{0.3em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.3\textwidth}
+      \textbf{People \& Symbols}\\[0.3em]
+      \emorow{grinning-face}\\[0.15em]
+      \emorow{thumbs-up}\\[0.15em]
+      \emorow{warning}\\[0.15em]
+      \emorow{check-mark-button}\\[0.15em]
+      \emorow{red-heart}\\[0.15em]
+      \emorow{fire}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \textbf{Nature \& Climate}\\[0.3em]
+      \emorow{sun}\\[0.15em]
+      \emorow{snowflake}\\[0.15em]
+      \emorow{cloud-with-rain}\\[0.15em]
+      \emorow{thermometer}\\[0.15em]
+      \emorow{rainbow}\\[0.35em]
+      \emorow{globe-showing-europe-africa}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \textbf{Tech \& Science}\\[0.3em]
+      \emorow{snake}\\[0.15em]
+      \emorow{rocket}\\[0.15em]
+      \emorow{bar-chart}\\[0.15em]
+      \emorow{light-bulb}\\[0.15em]
+      \emorow{laptop}\\[1.55em]
+      {\small Inline: I \emoji{red-heart} \LaTeX\@!}\\[0.3em]
+      \begin{codeblock}
+I \emoji{red-heart} LaTeX!
+      \end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ═════════════════════════════════════════════════════════════
 \section{Code}
 % ═════════════════════════════════════════════════════════════
@@ -605,6 +652,6 @@ def hello():
 %%% Local Variables:
 %%% coding: utf-8
 %%% mode: latex
-%%% TeX-engine: xetex
+%%% TeX-engine: luatex
 %%% TeX-command-extra-options: "-shell-escape"
 %%% End:
