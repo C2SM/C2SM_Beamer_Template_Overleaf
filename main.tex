@@ -1,6 +1,9 @@
 % !TEX program = xelatex
 % !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
 % chktex-file 8
+% chktex-file 11
+% chktex-file 18
+% chktex-file 36
 \documentclass[presentation, aspectratio=169]{beamer}
 \usepackage{fontspec}
 \usepackage{graphicx}
@@ -121,9 +124,9 @@
     \begin{column}{0.45\columnwidth}
       \textbf{Automatic date:}
 \begin{codeblock}
-\\def\\mydatefootnote\{\\currentdate\}
+\\def\\mydatefootnote\{\\currentdate}
 \end{codeblock}
-      Today: \currentdate
+      Today: \currentdate{}
     \end{column}
   \end{columns}
 \end{frame}
@@ -386,7 +389,7 @@
   \begin{itemize}
     \item \inlinecode{\\inlinecode\{text\}} --- styled monospace box: \inlinecode{example}
     \item \inlinecode{\\alert\{text\}} --- \alert{highlighted in the alert color}
-    \item \inlinecode{\\beamerarrow} --- inline arrow: Step 1 \beamerarrow\ Step 2 \beamerarrow\ Step 3
+    \item \inlinecode{\\beamerarrow\{\}} --- inline arrow: Step 1 \beamerarrow{} Step 2 \beamerarrow{} Step 3
   \end{itemize}
 
   \vspace{0.4em}
