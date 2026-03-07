@@ -33,15 +33,17 @@
   \endgroup
 }
 
-% Frame watermark: diagonal semi-transparent text overlay
+% Frame watermark: footer badge
 % Usage: \watermark[color]{text}   (default color: alert)
 % Place anywhere inside a frame to mark a slide as work-in-progress.
 \newcommand{\watermark}[2][alert]{%
   \begin{tikzpicture}[remember picture, overlay]
-    \node[rotate=45, opacity=0.20,
-          font={\fontsize{72}{72}\selectfont\bfseries\sffamily},
-          text=#1, anchor=center]
-      at (current page.center) {#2};
+    \node[anchor=east,
+          font={\small\bfseries\sffamily},
+          text=#1, draw=#1,
+          rounded corners=2pt,
+          inner sep=3pt]
+      at ([xshift=-0.24\paperwidth, yshift= 0.04\paperheight]current page.south east) {#2};
   \end{tikzpicture}%
 }
 
