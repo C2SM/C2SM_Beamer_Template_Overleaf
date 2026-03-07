@@ -684,6 +684,35 @@ def hello():
   \end{columns}
 \end{frame}
 
+\subsection{Watermarks}
+
+\begin{frame}[fragile]{watermark --- diagonal slide annotation}
+  \watermark{TODO}
+  \inlinecode{\\watermark[color]\{text\}} places a diagonal, semi-transparent text overlay
+  across the slide to flag work-in-progress slides.
+  The default color is \inlinecode{alert} (adapts to dark/light mode automatically).
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Default --- alert color:}
+\begin{codeblock}
+\\watermark\{TODO\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Custom color:}
+\begin{codeblock}
+\\watermark[orange]\{DRAFT\}
+\end{codeblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  Place \inlinecode{\\watermark} anywhere inside the \inlinecode{frame} environment.
+  The watermark does not affect the text layout.
+\end{frame}
+
 \subsection{Background Images}
 
 \begin{frame}{bgfig --- overlay image on page}

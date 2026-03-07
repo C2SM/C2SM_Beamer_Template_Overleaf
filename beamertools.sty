@@ -33,6 +33,18 @@
   \endgroup
 }
 
+% Frame watermark: diagonal semi-transparent text overlay
+% Usage: \watermark[color]{text}   (default color: alert)
+% Place anywhere inside a frame to mark a slide as work-in-progress.
+\newcommand{\watermark}[2][alert]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[rotate=45, opacity=0.20,
+          font={\fontsize{72}{72}\selectfont\bfseries\sffamily},
+          text=#1, anchor=center]
+      at (current page.center) {#2};
+  \end{tikzpicture}%
+}
+
 % Add a background figure relative to the center of the page
 % put any options to \node in the #2 argument like xshift, yshift or opacity
 % put any options to \includegraphics in the #3 argument
