@@ -68,22 +68,26 @@
 % Set dark or light mode by passing the darkmode option to the theme:
 \usetheme[darkmode]{C2SM}
 
-% Optional title page elements (must come after \usetheme, which resets these to empty)
-\def\affiliations{\affil{1}{Center for Climate Systems Modeling (C2SM), ETH Zurich}}
-\def\location{Zürich, Switzerland}
-\def\event{Our awesome event}
+% Add authors for title page
+\addauthor{Matthieu Leclair}{1}
+\addauthor{Michael Jähn}{1}
+\addauthor{John Doe}{}
 
-% Set PDF metadata (author, title, keywords, subject, creator, language)
-\author{Matthieu Leclair\textsuperscript{1}, Michael Jähn\textsuperscript{1}}
+% Add affiliations for title page
+\addaffil{1}{Center for Climate Systems Modeling (C2SM), ETH Zurich}
+
+% Optional title page elements (must come after \usetheme, which resets these to empty)
 \date{\mydate}
-\title{The Title}
-\subtitle{The more verbose Subtitle}
+\def\event{Our awesome event}
+\def\location{Zürich, Switzerland}
+
+% Set PDF metadata
+\title{C2SM Beamer Template}
+\subtitle{With practical examples}
 \hypersetup{
-  pdfauthor={My wonderful self},
-  pdftitle={The Title},
-  pdfkeywords={},
+  pdfauthor={\authorplain},
   pdfsubject={},
-  pdfcreator={}, 
+  pdfkeywords={},
   pdflang={English}
 }
 
