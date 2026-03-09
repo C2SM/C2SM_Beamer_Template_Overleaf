@@ -1,4 +1,4 @@
- \NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{beamertools}
 [2022/11/01 v0.01 LaTeX package for various beamer convenience functions]
 
@@ -219,4 +219,31 @@
     \end{tabular} 
     \endgroup
     \rowcolors{2}{}{} % reset row colors 
+}
+
+% Author/affiliation collection macros
+
+
+\newcommand{\addauthor}[3]{%
+  % Add author name with superscript
+  \ifx\authornames\@empty
+    \gdef\authornames{#1\textsuperscript{#2}}%
+  \else
+    \gdef\authornames{\authornames, #1\textsuperscript{#2}}%
+  \fi
+  % Add affiliation if not already present
+  \expandafter\ifx\csname affil@#2\endcsname\relax
+    \expandafter\gdef\csname affil@#2\endcsname{#3}%
+    \ifx\affillist\@empty
+      \gdef\affillist{\textsuperscript{#2}\,\textit{#3}}%
+    \else
+      \gdef\affillist{\affillist\\\textsuperscript{#2}\,\textit{#3}}%
+    \fi
+  \fi
+}
+
+% Helper to reset authors/affiliations (call before \addauthor)
+\newcommand{\clearauthors}{%
+  \gdef\authornames{}%
+  \gdef\affillist{}%
 }
