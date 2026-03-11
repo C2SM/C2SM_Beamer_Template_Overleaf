@@ -743,6 +743,14 @@ def hello():
 % \plainFrameGraphics inserts a plain frame (no chrome) with the image filling the slide
 \plainFrameGraphics{./Graphics/background_title_page_dark.png}
 
+\appendix
+\setbeamertemplate{background}{}  % Clear the background for appendix slides
+% Backup Slides (not counted in total page number)
+\begin{frame}{Backup Slide 1}
+  % Add your backup content here
+  This is a backup slide example.
+\end{frame}
+
 \end{document}
 
 %%% Local Variables:
