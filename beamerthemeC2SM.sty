@@ -88,7 +88,11 @@
 \fi
 
 \colorlet{block}{struct}
-\colorlet{url}{struct}
+\if@doDarkMode
+    \definecolor{url}{HTML}{6AB0F5}  % vivid blue for dark background
+\else
+    \definecolor{url}{HTML}{1558A6}  % dark blue for light background
+\fi
 \setbeamercolor{structure}{fg=struct, bg=bg_color}
 \setbeamercolor{title}{fg=bg_color, bg=struct}
 
@@ -262,7 +266,42 @@
 \setbeamerfont{part title}{size=\Large, series=\bfseries}
 \setbeamerfont{subtitle}{size=\large, series=\bfseries}
 \setbeamerfont{author}{size=\normalsize, series=\mdseries}
-\setbeamerfont{date}{size=\normalsize, series=\mdseries}
+\setbeamerfont{date}{size=\footnotesize, series=\mdseries}
+
+% Default definitions for optional title page fields
+\def\location{}
+\def\affiliations{}
+\def\event{}
+
+% Author affiliation footnote command
+\newcommand{\affil}[2]{\textsuperscript{#1}\,\textit{#2}}
+
+% Internal empty sentinel
+\def\authors{}
+\def\authorplain{}
+
+\def\addauthor#1#2{%
+  \ifx\authors\empty
+    \ifx\relax#2\relax % if #2 is empty
+      \def\authors{#1}%
+    \else
+      \def\authors{#1\textsuperscript{#2}}%
+    \fi
+    \def\authorplain{#1}%
+  \else
+    \ifx\relax#2\relax
+      \g@addto@macro\authors{, #1}%
+    \else
+      \g@addto@macro\authors{, #1\textsuperscript{#2}}%
+    \fi
+    \g@addto@macro\authorplain{, #1}%
+  \fi
+}
+
+% \addaffil{number}{Institution}  — appends, doesn't overwrite
+\newcommand{\addaffil}[2]{%
+  \g@addto@macro\affiliations{\affil{#1}{#2}\quad}%
+}
 
 % Set title page template
 \setbeamertemplate{title page}{
@@ -281,9 +320,26 @@
         {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
         \fi%
         \vskip1em\par
-        \usebeamerfont{author}\insertauthor
+          \usebeamerfont{author}\textsc{\authors}%
+        \ifx\affiliations\@empty%
+        \else%
+        \vskip0.5em\par%
+        {\usebeamerfont{date}\affiliations}%
+        \fi%
         \vskip1em\par
-        \usebeamerfont{date}\insertdate
+        {\usebeamerfont{date}\makebox[1.2em][c]{\faCalendar[regular]}~\insertdate}%
+        \ifx\event\@empty%
+        \else%
+        \vskip0.3em\par%
+        {\usebeamerfont{date}\makebox[1.2em][c]{\faUsers}~\event%
+        \ifx\location\@empty\else\hspace{1em}\makebox[1.2em][c]{\faMapMarker*}~\location\fi}%
+        \fi%
+        \ifx\event\@empty%
+        \ifx\location\@empty%
+        \else%
+        \vskip0.3em\par%
+        {\usebeamerfont{date}\makebox[1.2em][c]{\faMapMarker*}~\location}%
+        \fi\fi
       \end{beamercolorbox}
       \hfil}
     \vskip0.5em
@@ -323,4 +379,13 @@
       \centering
       {\usebeamerfont{part title}\usebeamercolor{part title}\insertpart\par}%
   \end{frame}
+}
+
+% Apply theme URL color to hyperlinks
+\AtBeginDocument{%
+  \if@doDarkMode
+    \hypersetup{urlcolor=[HTML]{6AB0F5}, linkcolor=[HTML]{6AB0F5}}%
+  \else
+    \hypersetup{urlcolor=[HTML]{1558A6}, linkcolor=[HTML]{1558A6}}%
+  \fi
 }

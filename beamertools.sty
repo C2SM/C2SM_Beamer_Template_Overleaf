@@ -1,12 +1,15 @@
- \NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{beamertools}
 [2022/11/01 v0.01 LaTeX package for various beamer convenience functions]
 
 \RequirePackage{xkeyval}
 \RequirePackage[export]{adjustbox} % graphicx is also included
+\RequirePackage{colortbl}          % \rowcolor, \rowcolors, \columncolor
 \RequirePackage{tikz}
 \usetikzlibrary{shapes.arrows}
+\usetikzlibrary{calc,math,positioning,fadings}
 \RequirePackage[skins]{tcolorbox}
+\RequirePackage{fontawesome5}
 
 % Draw nice "imply"-like arrows
 \newcommand{\beamerarrow}{\tikz{\node[single arrow,scale=0.3,
@@ -28,6 +31,20 @@
     \end{tikzpicture}
   \end{frame}
   \endgroup
+}
+
+% Frame watermark: footer badge
+% Usage: \watermark[color]{text}   (default color: alert)
+% Place anywhere inside a frame to mark a slide as work-in-progress.
+\newcommand{\watermark}[2][alert]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=east,
+          font={\small\bfseries\sffamily},
+          text=#1, draw=#1,
+          rounded corners=2pt,
+          inner sep=3pt]
+      at ([xshift=-0.24\paperwidth, yshift= 0.04\paperheight]current page.south east) {#2};
+  \end{tikzpicture}%
 }
 
 % Add a background figure relative to the center of the page
@@ -63,7 +80,6 @@
 % Make colorboxes with custom background and itemize colors
 \newenvironment<>{customcolbox}[1]{
   \begingroup
-  \setbeamercolor{boxcolor}{fg=normal text.fg,bg=#1!20!bg}
   \setbeamercolor{itemize item}{fg=#1}
   \setbeamercolor{itemize subitem}{fg=#1}
   \setbeamercolor{itemize subsubitem}{fg=#1}
@@ -72,8 +88,10 @@
   \setbeamercolor{enumerate subitem}{fg=#1}
   \setbeamercolor{enumerate subsubitem}{fg=#1}
   \setbeamercolor{description item}{fg=#1}
-  \begin{beamercolorbox}{boxcolor}}
-  {\end{beamercolorbox} \endgroup}
+  \begin{tcolorbox}[colback=#1!20!bg, colframe=#1!20!bg, colupper=fg,
+      boxrule=0pt, arc=0pt, outer arc=0pt,
+      left=0.5em, right=0.5em, top=0.3em, bottom=0.3em]}
+  {\end{tcolorbox} \endgroup}
 
 % simple tcolorbox choosing one color, itmize and bg colors are derived from it
 \newenvironment<>{framebox}[2][]{
@@ -85,7 +103,7 @@
   \setbeamercolor{enumerate item}{fg=#2}
   \setbeamercolor{enumerate subitem}{fg=#2}
   \setbeamercolor{enumerate subsubitem}{fg=#2}
-  \begin{tcolorbox}[colback=#2!15!bg, colframe=#2, #1]}
+  \begin{tcolorbox}[colback=#2!15!bg, colframe=#2, colupper=fg, coltitle=fg, colbacktitle=#2!40!bg, #1]}
   {\end{tcolorbox} \endgroup}
 
 % Some handy new environments
@@ -98,7 +116,7 @@
     \setbeamercolor{enumerate item}{fg=Plum3}
     \setbeamercolor{enumerate subitem}{fg=Plum3}
     \setbeamercolor{enumerate subsubitem}{fg=Plum3}
-    \begin{tcolorbox}[colback=Plum3!15!bg, boxrule=0.5pt, arc=0pt, outer arc=0pt, left=0pt, right=1pt, top=1pt, bottom=1pt, #1]}
+    \begin{tcolorbox}[colback=Plum3!15!bg, colframe=Plum3, colupper=fg, boxrule=0.5pt, arc=0pt, outer arc=0pt, left=0pt, right=1pt, top=1pt, bottom=1pt, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newenvironment<>{taskproposal}[1][]{
@@ -110,14 +128,14 @@
     \setbeamercolor{enumerate item}{fg=SkyBlue3}
     \setbeamercolor{enumerate subitem}{fg=SkyBlue3}
     \setbeamercolor{enumerate subsubitem}{fg=SkyBlue3}
-    \begin{tcolorbox}[colback=SkyBlue3!15!bg, colframe=SkyBlue3, #1]}
+    \begin{tcolorbox}[colback=SkyBlue3!15!bg, colframe=SkyBlue3, colupper=fg, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newenvironment<>{priority}[2][]{
     \ifthenelse{\equal{#2}{A}}{\colorlet{bgcol}{Chameleon3}}{
         \ifthenelse{\equal{#2}{B}}{\colorlet{bgcol}{Orange3}}{
             \ifthenelse{\equal{#2}{C}}{\colorlet{bgcol}{ScarletRed3}}{
-                \ifthenelse{\equal{#2}{D}}{\colorlet{bgcol}{Aluminium6}}{
+                \ifthenelse{\equal{#2}{D}}{\colorlet{bgcol}{Aluminium3}}{
                     \colorlet{bgcol}{C2SM_petrol_blue}}}}}
     \begingroup
     \setbeamercolor{itemize item}{fg=bgcol}
@@ -127,7 +145,13 @@
     \setbeamercolor{enumerate item}{fg=bgcol}
     \setbeamercolor{enumerate subitem}{fg=bgcol}
     \setbeamercolor{enumerate subsubitem}{fg=bgcol}
-    \begin{tcolorbox}[colback=bgcol!15!bg, boxrule=0pt, frame empty, arc=0pt, outer arc=0pt, #1]}
+    \def\prioritylabel{#2}%
+    \begin{tcolorbox}[enhanced, colback=bgcol!15!bg, colframe=bgcol, colupper=fg, boxrule=0pt,
+        arc=0pt, outer arc=0pt,
+        overlay={\node[circle, fill=bgcol, text=white, font=\bfseries\small,
+                       inner sep=2pt, minimum size=1.6em]
+                       at ([xshift=1.3em]frame.west) {\prioritylabel};},
+        left=2.2em, #1]}
     {\end{tcolorbox} \endgroup}
 
 \newcommand<>{\smileyframe}[2][]{
@@ -148,3 +172,78 @@
 \newenvironment{codeblock}
 {\colorlet{framecol}{normal text.fg}\begin{tcolorbox}[standard jigsaw, colback=framecol, colframe=framecol, opacityback=0.07, boxsep=0.5em, left=0pt, right=0pt, bottom=0pt, top=0pt, boxrule=0.5pt]\color{framecol}\scriptsize\begin{semiverbatim}}
 {\end{semiverbatim}\end{tcolorbox}}
+
+% Helper for icon tables: icon + command name
+\newcommand{\farow}[2]{\makebox[1.4em]{\large#1}\,{\small\inlinecode{#2}}}
+
+% Helper for emoji tables: emoji + CLDR name as inlinecode (requires emoji package)
+\newcommand{\emorow}[1]{\makebox[1.6em]{\emoji{#1}}\,{\small\inlinecode{#1}}}
+
+% Compact circular ToC section number template
+\defbeamertemplate{section in toc}{smallcircle}{%
+  \leavevmode%
+  \usebeamerfont*{section number projected}%
+  \usebeamercolor{section number projected}%
+  \tikz[baseline=(char.base), inner sep=0pt, outer sep=0pt]{%
+    \node[circle, fill=bg, text=fg, inner sep=1.5pt,%
+          font=\footnotesize\bfseries, minimum size=1.4em] (char) {\inserttocsectionnumber};%
+  }\hspace{0.3em}%
+  \inserttocsection\par%
+}
+
+% Compact small-dot ToC subsection template
+\defbeamertemplate{subsection in toc}{smalldot}{%
+  \leavevmode\leftskip=1.7em\hspace{0.3em}\inserttocsubsection\par%
+}
+
+%% Tables
+\newcommand{\textrow}[2]{\textcolor{#1}{#2}}
+
+% Define colors
+\definecolor{BlueHeader}{HTML}{336699}  % darker header so white text is visible
+\definecolor{BlueRowA}{HTML}{43525E}
+\definecolor{BlueRowB}{HTML}{4B5C69}
+
+% New environment: bluetable
+\newenvironment{bluetable}[1] % #1 = column specification
+{
+    \renewcommand{\arraystretch}{1.25} % increase row height (1.0 = default)
+    % Apply alternating row colors to body
+    \rowcolors{2}{BlueRowA}{BlueRowB} 
+    \begingroup
+
+    \begin{tabular}{#1} 
+    \rowcolor{BlueHeader} % header background
+}
+{
+    \end{tabular} 
+    \endgroup
+    \rowcolors{2}{}{} % reset row colors 
+}
+
+% Author/affiliation collection macros
+
+
+\newcommand{\addauthor}[3]{%
+  % Add author name with superscript
+  \ifx\authornames\@empty
+    \gdef\authornames{#1\textsuperscript{#2}}%
+  \else
+    \gdef\authornames{\authornames, #1\textsuperscript{#2}}%
+  \fi
+  % Add affiliation if not already present
+  \expandafter\ifx\csname affil@#2\endcsname\relax
+    \expandafter\gdef\csname affil@#2\endcsname{#3}%
+    \ifx\affillist\@empty
+      \gdef\affillist{\textsuperscript{#2}\,\textit{#3}}%
+    \else
+      \gdef\affillist{\affillist\\\textsuperscript{#2}\,\textit{#3}}%
+    \fi
+  \fi
+}
+
+% Helper to reset authors/affiliations (call before \addauthor)
+\newcommand{\clearauthors}{%
+  \gdef\authornames{}%
+  \gdef\affillist{}%
+}

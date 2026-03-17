@@ -1,152 +1,754 @@
+% !TEX program = lualatex
+% !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error "%DOC%"
+% chktex-file 8
+% chktex-file 11
+% chktex-file 13
+% chktex-file 18
+% chktex-file 36
+\PassOptionsToPackage{table}{xcolor}  % load colortbl via xcolor before beamer claims xcolor
+\PassOptionsToPackage{colorlinks=true}{hyperref} % Must be set before beamer loads hyperref
 \documentclass[presentation, aspectratio=169]{beamer}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage[customcolors]{hf-tikz}
-\usepackage{amssymb}
-\usepackage{capt-of}
-\usepackage{hyperref}
-\usepackage{minted}
-\usepackage{fontspec}
-\usepackage[sfdefault,light]{roboto}
-\usepackage{beamertools}
-\usepackage{tango}
-\usepackage{setspace}
-\usepackage{pdfpages}
-\usepackage{booktabs}
-\usepackage{caption}
-\usepackage{tabularx,ragged2e}
-\usepackage{xcolor}
-\usepackage{pifont}
-\usepackage{array}
-\usepackage{import}
-\usepackage[justification=centering]{caption}
-\usepackage{appendixnumberbeamer}
-\usepackage{fontawesome}
-\usepackage[skins]{tcolorbox}
-\usepackage[version=4]{mhchem}
-\usepackage{tikz}
-\usetikzlibrary{math}
-\usetikzlibrary{calc}
-\usetikzlibrary{positioning}
-\usetikzlibrary{fadings}
+% --- Fonts & Typography ---
+\usepackage{fontspec}                         % OpenType font selection (LuaLaTeX/XeLaTeX)
+\usepackage[sfdefault,light]{roboto}          % Roboto sans-serif as default font
+\usepackage{setspace}                         % Line-spacing control
 
-% Set hyperlink color
-% (url color defined in beamerthemeC2SM.sty, chnages with dark/light mode)
-\hypersetup{
-  colorlinks=true,
-  linkcolor=url, % choose the color you want
-  urlcolor=url
-}
+% --- Math & Chemistry ---
+\usepackage{amsmath}                          % Math environments (align, gather, …)
+\usepackage{amssymb}                          % AMS math symbols
+\usepackage[version=4]{mhchem}                % Chemical formulae (\ce{H2O})
+
+% --- Graphics & Figures ---
+\usepackage{graphicx}                         % \includegraphics
+\usepackage{wrapfig}                          % Text wrapped around figures
+\usepackage{rotating}                         % Rotate text and figures
+\usepackage{pdfpages}                         % Include external PDF pages
+\usepackage{capt-of}                          % \captionof outside float environments
+\usepackage[justification=centering]{caption} % Caption formatting and alignment
+
+% --- Tables ---
+\usepackage{longtable}                        % Tables spanning multiple pages
+\usepackage{booktabs}                         % Professional rules (\toprule, \midrule, …)
+\usepackage{tabularx,ragged2e}                % Flexible-width columns + ragged text
+\usepackage{array}                            % Extended column types for tabular/array
+
+% --- Colors & Symbols ---
+\usepackage{xcolor}                           % Extended color support
+\usepackage{pifont}                           % Dingbat symbols (\ding{51} = ✓)
+
+% --- TikZ ---
+\usepackage[customcolors]{hf-tikz}            % Highlight formula parts with TikZ
+
+% --- Hyperlinks & PDF Metadata ---
+\usepackage{hyperref}                         % Hyperlinks and PDF metadata
+\usepackage{bookmark}                         % Enhanced PDF bookmarks
+
+% --- Code Listing ---
+\usepackage{minted}                           % Syntax-highlighted code (requires -shell-escape)
+
+% --- Beamer Utilities ---
+\usepackage{appendixnumberbeamer}             % Correct slide numbering in appendix
+
+% --- Project-Local Packages ---
+\usepackage{beamertools}                      % Custom beamer commands (boxes, icons, …)
+\usepackage{tango}                            % Tango color palette
+
+% --- Misc / Layout ---
+\usepackage[normalem]{ulem}                   % Strikethrough (\sout) and underline variants
+\usepackage{import}                           % \import for relative path file inclusion
+
+% --- Emoji (LuaLaTeX only) ---
+\usepackage{emoji}                            % Unicode emoji via \emoji{name}
+\setemojifont{Noto Color Emoji}               % Emoji font (requires noto-fonts-extra)
 
 % Set dates for title and footnote
-\def\mydate{December 24, 2022}
-\def\mydatefootnote{2022-12-24}
+\def\mydate{09 March, 2026}
+\def\mydatefootnote{2026-03-06}
 
+% Set dark or light mode by passing the darkmode option to the theme:
 \usetheme[darkmode]{C2SM}
-\author{My wonderful self}
+
+% Add authors for title page
+\addauthor{Matthieu Leclair}{1}
+\addauthor{Michael Jähn}{1}
+\addauthor{John Doe}{}
+
+% Add affiliations for title page
+\addaffil{1}{Center for Climate Systems Modeling (C2SM), ETH Zurich}
+
+% Optional title page elements (must come after \usetheme, which resets these to empty)
 \date{\mydate}
-\title{The Title}
-\subtitle{The more verbose Subtitle}
+\def\event{Our awesome event}
+\def\location{Zürich, Switzerland}
+
+% Set PDF metadata
+\title{C2SM Beamer Template}
+\subtitle{With practical examples}
 \hypersetup{
-  pdfauthor={My wonderful self},
-  pdftitle={The Title},
-  pdfkeywords={},
+  pdfauthor={\authorplain},
   pdfsubject={},
-  pdfcreator={}, 
+  pdfkeywords={},
   pdflang={English}
+}
+
+% Show a mini ToC (current section highlighted) at the start of each section
+\AtBeginSection[]{%
+  \begingroup%
+  \setbeamertemplate{section in toc}[smallcircle]%
+  \setbeamertemplate{subsection in toc}[smalldot]%
+  \begin{frame}{Outline}
+    \begin{columns}[t, onlytextwidth]
+      \begin{column}{0.48\textwidth}
+        \tableofcontents[currentsection, hideothersubsections, sections={1-3}]
+      \end{column}
+      \begin{column}{0.48\textwidth}
+        \tableofcontents[currentsection, hideothersubsections, sections={4-6}]
+      \end{column}
+    \end{columns}
+  \end{frame}%
+  \endgroup%
 }
 
 \begin{document}
 
 \maketitle
 
-\part{First part}
+% ─────────────────────────────────────────────────────────────
+% Table of Contents
+% ─────────────────────────────────────────────────────────────
+\begingroup%
+\setbeamertemplate{section in toc}[smallcircle]%
+\setbeamertemplate{subsection in toc}[smalldot]%
+\begin{frame}{Outline}
+  \tableofcontents[hideallsubsections]
+\end{frame}%
+\endgroup
 
-\begin{frame}{The frame title}
-  \note{note
-    Talk no more than 1 minute.}
+% ═════════════════════════════════════════════════════════════
+\section{Theme Setup}
+% ═════════════════════════════════════════════════════════════
 
-  \begin{block}<1->{A normal block}
+\subsection{Dark \& Light Mode}
+
+\begin{frame}[fragile]{Dark \& Light Mode}
+  Switch between dark and light mode by passing (or omitting) the \inlinecode{darkmode} option:
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Dark mode} (current):
+\begin{codeblock}
+\\usetheme\alert{[darkmode]}\{C2SM\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Light mode}:
+\begin{codeblock}
+\\usetheme\{C2SM\}
+\end{codeblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4em}
+  All colors, logos, and backgrounds switch automatically between the two palettes.
+\end{frame}
+
+\subsection{Date \& Footer}
+
+\begin{frame}[fragile]{Date \& Footer}
+  The footer date is controlled by \inlinecode{\\mydatefootnote} and the title date by \inlinecode{\\mydate}.
+  Use \inlinecode{\\currentdate} to insert today as \inlinecode{YYYY-MM-DD} automatically:
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \textbf{Fixed dates:}
+\begin{codeblock}
+\\def\\mydate\{March 06, 2026\}
+\\def\\mydatefootnote\{2026-03-06\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Automatic date:}
+\begin{codeblock}
+\\def\\mydatefootnote\{\\currentdate\}
+\end{codeblock}
+      Today: \currentdate{}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\section{Colors}
+% ═════════════════════════════════════════════════════════════
+
+\subsection{Theme Color Palette}
+
+\begin{frame}{Theme Color Palette}
+  Named colors defined by the theme, adapting automatically to dark/light mode:
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.45\columnwidth}
+      \begin{itemize}
+        \item \textcolor{red}{\rule{1em}{1em}}~\inlinecode{red}
+        \item \textcolor{blue}{\rule{1em}{1em}}~\inlinecode{blue}
+        \item \textcolor{green}{\rule{1em}{1em}}~\inlinecode{green}
+        \item \textcolor{orange}{\rule{1em}{1em}}~\inlinecode{orange}
+        \item \textcolor{yellow}{\rule{1em}{1em}}~\inlinecode{yellow}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \begin{itemize}
+        \item \textcolor{plum}{\rule{1em}{1em}}~\inlinecode{plum}
+        \item \textcolor{cyan}{\rule{1em}{1em}}~\inlinecode{cyan}
+        \item \textcolor{beige}{\rule{1em}{1em}}~\inlinecode{beige}
+        \item \textcolor{petrol}{\rule{1em}{1em}}~\inlinecode{petrol}
+        \item \textcolor{darkgray}{\rule{1em}{1em}}~\inlinecode{darkgray}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4em}
+  Use with \inlinecode{\\textcolor\{orange\}\{text\}} or \inlinecode{\\color\{green\}}.
+\end{frame}
+
+\subsection{Tango Colors}
+
+\begin{frame}{Tango Color Palette \& Commands}
+  The \inlinecode{tango} package provides fixed named colors and overlay-aware commands.
+
+  \vspace{0.3em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \textbf{Commands:} \inlinecode{\\plum\{depth\}\{text\}}\\[0.4em]
+      \plum{1}{Plum1} \quad \plum{2}{Plum2} \quad \plum{3}{Plum3}\\
+      \skyblue{1}{SkyBlue1} \quad \skyblue{2}{SkyBlue2} \quad \skyblue{3}{SkyBlue3}\\
+      \chameleon{1}{Chameleon1} \quad \chameleon{2}{Chameleon2} \quad \chameleon{3}{Chameleon3}\\
+      \orange{1}{Orange1} \quad \orange{2}{Orange2} \quad \orange{3}{Orange3}\\
+      \butter{1}{Butter1} \quad \butter{2}{Butter2} \quad \butter{3}{Butter3}\\
+      \chocolate{1}{Choc.1} \quad \chocolate{2}{Choc.2} \quad \chocolate{3}{Choc.3}\\
+      \scarletred{1}{Red1} \quad \scarletred{2}{Red2} \quad \scarletred{3}{Red3}\\
+      \aluminium{1}{Alu1} \quad \aluminium{4}{Alu4} \quad \aluminium{6}{Alu6}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \textbf{Direct color names:}\\[0.4em]
+      \begin{itemize}
+        \item \textcolor{Plum1}{\rule{0.8em}{0.8em}}~\textcolor{Plum2}{\rule{0.8em}{0.8em}}~\textcolor{Plum3}{\rule{0.8em}{0.8em}}~Plum 1--3
+        \item \textcolor{SkyBlue1}{\rule{0.8em}{0.8em}}~\textcolor{SkyBlue2}{\rule{0.8em}{0.8em}}~\textcolor{SkyBlue3}{\rule{0.8em}{0.8em}}~SkyBlue 1--3
+        \item \textcolor{Chameleon1}{\rule{0.8em}{0.8em}}~\textcolor{Chameleon2}{\rule{0.8em}{0.8em}}~\textcolor{Chameleon3}{\rule{0.8em}{0.8em}}~Chameleon 1--3
+        \item \textcolor{Orange1}{\rule{0.8em}{0.8em}}~\textcolor{Orange2}{\rule{0.8em}{0.8em}}~\textcolor{Orange3}{\rule{0.8em}{0.8em}}~Orange 1--3
+        \item \textcolor{ScarletRed1}{\rule{0.8em}{0.8em}}~\textcolor{ScarletRed2}{\rule{0.8em}{0.8em}}~\textcolor{ScarletRed3}{\rule{0.8em}{0.8em}}~ScarletRed 1--3
+        \item \textcolor{Aluminium1}{\rule{0.8em}{0.8em}}~\textcolor{Aluminium3}{\rule{0.8em}{0.8em}}~\textcolor{Aluminium6}{\rule{0.8em}{0.8em}}~Aluminium 1--6
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\section{Blocks \& Boxes}
+% ═════════════════════════════════════════════════════════════
+
+\subsection{Standard Blocks}
+
+\begin{frame}{Standard Blocks}
+  Three built-in block types whose colors follow dark/light mode automatically:
+
+  \vspace{0.3em}
+  \begin{block}{block --- general information}
+    Use for neutral content. Item bullet colors match the block accent color.
     \begin{itemize}
-    \item Hello World
-    \item The 2 following blocks are in an \inlinecode{overprint} environment
+      \item Hello World
     \end{itemize}
+  \end{block}
+
+  \vspace{0.3em}
+  \begin{alertblock}{alertblock --- warnings or key points}
+    Use to draw attention to important information.
+  \end{alertblock}
+
+  \vspace{0.3em}
+  \begin{exampleblock}{exampleblock --- examples or results}
+    Use for examples, code output, or tips.
+  \end{exampleblock}
+\end{frame}
+
+\subsection{Custom Blocks \& Overlays}
+
+\begin{frame}{customblock --- custom color, overlays \& overprint}
+  \inlinecode{customblock} accepts \inlinecode{bgcolor=} and \inlinecode{itcolor=} and supports overlay specs.
+
+  \begin{block}<1->{Visible from slide 1}
+    Always visible. The \inlinecode{overprint} below replaces content without shifting layout.
   \end{block}
 
   \begin{overprint}
     \onslide<2>
+    \vspace{0.3em}
+    Plain text on slide~2 inside \inlinecode{overprint} --- the block above does not move.
 
-    An overprint environment : Blocks replacing this text don't make the following move.
-    
-    \onslide<3>
-
-    \begin{customblock}<2->[bgcolor=plum, itcolor=plum]{A custom color block with columns}
+    \onslide<3->
+    \begin{customblock}<3->[bgcolor=plum, itcolor=plum]{customblock with bgcolor=plum (slide 3+)}
       \begin{columns}
-        \begin{column}{0.6\columnwidth}
-          Some definitions:
+        \begin{column}{0.55\columnwidth}
           \begin{description}
-          \item[{toto}] some blabla
-          \item[{tata}] another blabla
+            \item[bgcolor] sets title and background tint color
+            \item[itcolor] sets bullet/enumerate color
           \end{description}
         \end{column}
-
-        \begin{column}{0.3\columnwidth}
-          enumerate env:
+        \begin{column}{0.35\columnwidth}
           \begin{enumerate}
-          \item something
-          \item Something else
+            \item red, blue, green
+            \item orange, plum, cyan\ldots
           \end{enumerate}
         \end{column}
       \end{columns}
     \end{customblock}
-
-    \onslide<4->
-
-    \begin{exampleblock}{An example block}
-      Hello
-    \end{exampleblock}
   \end{overprint}
-
-  \onslide<2->
-  \begin{enumerate}
-  \item first item
-  \item second item
-    \setcounter{enumi}{5}
-  \item Changing enum counter
-  \end{enumerate}
 \end{frame}
 
-\part{Second part}
+\subsection{Color Boxes}
 
-\begin{frame}{Frame title 2}
-  Some blabla
+\begin{frame}{framebox \& customcolbox}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \textbf{\inlinecode{framebox\{color\}}} --- bordered tcolorbox:
+      \vspace{0.3em}
+      \begin{framebox}{green}
+        Border + tinted background from one color.
+        \begin{itemize}
+          \item Bullet colors follow automatically
+        \end{itemize}
+      \end{framebox}
+      \vspace{0.3em}
+      \begin{framebox}[title=With extra tcolorbox options]{orange}
+        Pass extra tcolorbox options as the first optional argument.
+      \end{framebox}
+    \end{column}
+    \begin{column}{0.48\columnwidth}
+      \textbf{\inlinecode{customcolbox\{color\}}} --- titleless box:
+      \vspace{0.3em}
+      \begin{customcolbox}{cyan}
+        No title bar, tinted background; good for side notes or highlights.
+        \begin{itemize}
+          \item Bullet colors follow automatically
+        \end{itemize}
+      \end{customcolbox}
+      \vspace{0.3em}
+      \begin{customcolbox}{plum}
+        Same environment in \inlinecode{plum}.
+      \end{customcolbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{background \& taskproposal --- preset boxes}
+  Fixed-color boxes for recurring use cases:
+
+  \vspace{0.3em}
+  \begin{background}
+    \textbf{background} --- Plum3 box for contextual information.
+    \begin{itemize}
+      \item Use this to provide background knowledge before the main content
+    \end{itemize}
+  \end{background}
+
+  \vspace{0.4em}
+  \begin{taskproposal}
+    \textbf{taskproposal} --- SkyBlue3 box for proposed tasks or action items.
+    \begin{itemize}
+      \item Use this to outline work items or next steps
+    \end{itemize}
+  \end{taskproposal}
+\end{frame}
+
+\subsection{Priority Boxes}
+
+\begin{frame}{priority --- color-coded priority levels}
+  \inlinecode{\\begin\{priority\}\{A|B|C|D\}} maps to four color levels:
+
+  \vspace{0.3em}
+  \begin{priority}{A}
+    \textbf{Priority A} --- Chameleon3 (green): must do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{B}
+    \textbf{Priority B} --- Orange3: should do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{C}
+    \textbf{Priority C} --- ScarletRed3: could do
+  \end{priority}
+  \vspace{0.2em}
+  \begin{priority}{D}
+    \textbf{Priority D} --- Aluminium6 (grey): won't do for now
+  \end{priority}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\section{Lists \& Text}
+% ═════════════════════════════════════════════════════════════
+
+\subsection{Lists \& Overlays}
+
+\begin{frame}{Lists}
+  \begin{columns}
+    \begin{column}{0.3\columnwidth}
+      \textbf{itemize:}
+      \begin{itemize}
+        \item First
+        \item Second
+          \begin{itemize}
+            \item Sub-item
+          \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.3\columnwidth}
+      \textbf{enumerate:}
+      \begin{enumerate}
+        \item First
+        \item Second
+          \setcounter{enumi}{5}
+        \item Skipped to 6
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.3\columnwidth}
+      \textbf{description:}
+      \begin{description}
+        \item[Term A] explanation
+        \item[Term B] explanation
+      \end{description}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4em}
+  Use \inlinecode{\\onslide<2->} or \inlinecode{\\item<2->} for incremental reveal:
   \begin{itemize}
-  \item super exciting results
-  \item even more awesome
+    \item<2-> This item appears on slide~2
+    \item<3-> This item appears on slide~3
+  \end{itemize}
+  \note{Presenter notes go here with \\note\{...\} inside the frame.}
+\end{frame}
+
+\subsection{Inline Elements \& Annotations}
+
+\begin{frame}{Inline Elements \& Annotations}
+  \begin{itemize}
+    \item \inlinecode{\\inlinecode\{text\}} --- styled monospace box: \inlinecode{example}
+    \item \inlinecode{\\alert\{text\}} --- \alert{highlighted in the alert color}
+    \item \inlinecode{\\beamerarrow\{\}} --- inline arrow: Step 1 \beamerarrow{} Step 2 \beamerarrow{} Step 3
+  \end{itemize}
+
+  \vspace{0.4em}
+  \textbf{Tango text color commands} (overlay-aware): \inlinecode{\\plum\{depth\}\{text\}}
+
+  \vspace{0.3em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \plum{2}{$\backslash$plum\{2\}\{...\}} \quad
+      \skyblue{2}{$\backslash$skyblue\{2\}\{...\}}\\[0.3em]
+      \chameleon{2}{$\backslash$chameleon\{2\}\{...\}} \quad
+      \orange{2}{$\backslash$orange\{2\}\{...\}}
+    \end{column}
+    \begin{column}{0.45\columnwidth}
+      \butter{2}{$\backslash$butter\{2\}\{...\}} \quad
+      \chocolate{2}{$\backslash$chocolate\{2\}\{...\}}\\[0.3em]
+      \scarletred{2}{$\backslash$scarletred\{2\}\{...\}} \quad
+      \aluminium{4}{$\backslash$aluminium\{4\}\{...\}}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  Overlay spec example: \plum{2}<2>{this text is plum-colored only on slide~2}
+\end{frame}
+
+\subsection{Hyperlinks \& URLs}
+
+\begin{frame}[fragile]{Hyperlinks \& URLs}
+  Two commands for linking, both using the \inlinecode{url} color defined by the theme:
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{\inlinecode{\\url\{...\}}} --- display a raw URL:
+      \vspace{0.3em}
+\begin{codeblock}
+\\url\{https://c2sm.ethz.ch\}
+\end{codeblock}
+      \vspace{0.3em}
+      Result: \url{https://c2sm.ethz.ch}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\inlinecode{\\href\{url\}\{text\}}} --- link text to a URL:
+      \vspace{0.3em}
+\begin{codeblock}
+\\href\{https://c2sm.ethz.ch\}\{C2SM website\}
+\end{codeblock}
+      \vspace{0.3em}
+      Result: \href{https://c2sm.ethz.ch}{C2SM website}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5em}
+  Link colors are set in the preamble via \inlinecode{\\hypersetup}:
+\begin{codeblock}
+\\hypersetup\{colorlinks=true, linkcolor=url, urlcolor=url\}
+\end{codeblock}
+  The \inlinecode{url} color switches automatically with dark/light mode.
+\end{frame}
+
+\subsection{Icons (FontAwesome 5)}
+
+\begin{frame}[fragile]{Icons --- Web \& UI / Programming \& Dev}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \textbf{Web \& UI}\\[0.3em]
+      \farow{\faGlobe}{\textbackslash{}faGlobe}\\[0.15em]
+      \farow{\faHome}{\textbackslash{}faHome}\\[0.15em]
+      \farow{\faEnvelope}{\textbackslash{}faEnvelope}\\[0.15em]
+      \farow{\faLink}{\textbackslash{}faLink}\\[0.15em]
+      \farow{\faLock}{\textbackslash{}faLock}\\[0.15em]
+      \farow{\faUser}{\textbackslash{}faUser}\\[0.15em]
+      \farow{\faSearch}{\textbackslash{}faSearch}\\[0.15em]
+      \farow{\faCog}{\textbackslash{}faCog}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Programming \& Dev}\\[0.3em]
+      \farow{\faGithub}{\textbackslash{}faGithub}\\[0.15em]
+      \farow{\faGitlab}{\textbackslash{}faGitlab}\\[0.15em]
+      \farow{\faPython}{\textbackslash{}faPython}\\[0.15em]
+      \farow{\faDocker}{\textbackslash{}faDocker}\\[0.15em]
+      \farow{\faTerminal}{\textbackslash{}faTerminal}\\[0.15em]
+      \farow{\faCode}{\textbackslash{}faCode}\\[0.15em]
+      \farow{\faDatabase}{\textbackslash{}faDatabase}\\[0.15em]
+      \farow{\faBug}{\textbackslash{}faBug}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Coloring icons}\\[0.3em]
+      {\small Use \inlinecode{\\textcolor} or a color group:}\\[0.5em]
+      \textcolor{orange}{\farow{\faGlobe}{\textbackslash{}faGlobe}}\\[0.15em]
+      \textcolor{cyan}{\farow{\faPython}{\textbackslash{}faPython}}\\[0.15em]
+      \textcolor{red}{\farow{\faBug}{\textbackslash{}faBug}}\\[0.15em]
+      \textcolor{green}{\farow{\faCheck}{\textbackslash{}faCheck}}\\[0.5em]
+      {\small Inline: \textcolor{yellow}{\faStar}\,%
+      \textcolor{plum}{\faStar}\,%
+      \textcolor{petrol}{\faStar}}\\[0.4em]
+      \begin{codeblock}
+\\textcolor\{orange\}\{\\faGlobe\}
+\{\\color\{cyan\}\\faPython\}
+      \end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Icons --- Weather \& Climate}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \farow{\faSun}{\textbackslash{}faSun}\\[0.2em]
+      \farow{\faCloud}{\textbackslash{}faCloud}\\[0.2em]
+      \farow{\faCloudSun}{\textbackslash{}faCloudSun}\\[0.2em]
+      \farow{\faCloudRain}{\textbackslash{}faCloudRain}\\[0.2em]
+      \farow{\faCloudShowersHeavy}{\textbackslash{}faCloudShowersHeavy}\\[0.2em]
+      \farow{\faCloudMoonRain}{\textbackslash{}faCloudMoonRain}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \farow{\faSnowflake}{\textbackslash{}faSnowflake}\\[0.2em]
+      \farow{\faBolt}{\textbackslash{}faBolt}\\[0.2em]
+      \farow{\faWind}{\textbackslash{}faWind}\\[0.2em]
+      \farow{\faSmog}{\textbackslash{}faSmog}\\[0.2em]
+      \farow{\faRainbow}{\textbackslash{}faRainbow}\\[0.2em]
+      \farow{\faThermometerHalf}{\textbackslash{}faThermometerHalf}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \textbf{Colored weather icons}\\[0.4em]
+      \textcolor{yellow}{\farow{\faSun}{\textbackslash{}faSun}}\\[0.2em]
+      \textcolor{cyan}{\farow{\faSnowflake}{\textbackslash{}faSnowflake}}\\[0.2em]
+      \textcolor{blue}{\farow{\faCloudRain}{\textbackslash{}faCloudRain}}\\[0.2em]
+      \textcolor{orange}{\farow{\faBolt}{\textbackslash{}faBolt}}\\[0.2em]
+      \textcolor{petrol}{\farow{\faWind}{\textbackslash{}faWind}}\\[0.2em]
+      \textcolor{red}{\farow{\faThermometerHalf}{\textbackslash{}faThermometerHalf}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Emojis}
+
+\begin{frame}[fragile]{Emojis}
+  Load \inlinecode{\\usepackage\{emoji\}} (LuaLaTeX only).
+  Use \inlinecode{\\emoji\{name\}} with Unicode CLDR short names (hyphens for spaces):
+
+  \vspace{0.3em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.3\textwidth}
+      \textbf{People \& Symbols}\\[0.3em]
+      \emorow{grinning-face}\\[0.15em]
+      \emorow{thumbs-up}\\[0.15em]
+      \emorow{warning}\\[0.15em]
+      \emorow{check-mark-button}\\[0.15em]
+      \emorow{red-heart}\\[0.15em]
+      \emorow{fire}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \textbf{Nature \& Climate}\\[0.3em]
+      \emorow{sun}\\[0.15em]
+      \emorow{snowflake}\\[0.15em]
+      \emorow{cloud-with-rain}\\[0.15em]
+      \emorow{thermometer}\\[0.15em]
+      \emorow{rainbow}\\[0.35em]
+      \emorow{globe-showing-europe-africa}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \textbf{Tech \& Science}\\[0.3em]
+      \emorow{snake}\\[0.15em]
+      \emorow{rocket}\\[0.15em]
+      \emorow{bar-chart}\\[0.15em]
+      \emorow{light-bulb}\\[0.15em]
+      \emorow{laptop}\\[1.55em]
+      {\small Inline: I \emoji{red-heart} \LaTeX\@!}\\[0.3em]
+      \begin{codeblock}
+I \emoji{red-heart} LaTeX!
+      \end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Tables}
+
+\begin{frame}[fragile]{bluetable --- styled tabular with alternating rows}
+  \inlinecode{bluetable\{col spec\}} wraps a \inlinecode{tabular} with a dark header row and alternating body row shading.
+  Wrap header cell text in \inlinecode{\\textcolor\{white\}\{...\}} for readability on the dark background.
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.44\textwidth}
+      \begin{bluetable}{lcc}
+        \textcolor{white}{\textbf{Model}} &
+        \textcolor{white}{\textbf{Res.}} &
+        \textcolor{white}{\textbf{Domain}} \\
+        COSMO & 2.2\,km & Alpine \\
+        ICON  & 13\,km  & Europe \\
+        ECMWF & 9\,km   & Global \\
+      \end{bluetable}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+\begin{codeblock}
+\\begin\{bluetable\}\{lcc\}
+  \\textcolor\{white\}\{\\textbf\{Model\}\} &
+  \\textcolor\{white\}\{\\textbf\{Res.\}\} &
+  \\textcolor\{white\}\{\\textbf\{Domain\}\} \\\\
+  COSMO & 2.2\\,km & Alpine \\\\
+  ICON  & 13\\,km  & Europe \\\\
+  ECMWF & 9\\,km   & Global \\\\
+\\end\{bluetable\}
+\end{codeblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\section{Code}
+% ═════════════════════════════════════════════════════════════
+
+\subsection{Code Blocks}
+
+\begin{frame}[fragile]{Code Environments}
+  Two environments for displaying code:
+
+  \vspace{0.4em}
+  \textbf{\inlinecode{codeblock}} --- semi-verbatim with \inlinecode{\\alert} markup support:
+\begin{codeblock}
+def hello():
+    \alert{print("Hello, world!")}  % this line is highlighted
+\end{codeblock}
+
+  \vspace{0.4em}
+  \textbf{\inlinecode{minted}} --- syntax-highlighted (requires \inlinecode{-shell-escape}):
+  \begin{minted}{python}
+def hello():
+    print("Hello, world!")
+  \end{minted}
+\end{frame}
+
+% ═════════════════════════════════════════════════════════════
+\section{Graphics \& Layout}
+% ═════════════════════════════════════════════════════════════
+
+\subsection{Columns \& Multi-Line Titles}
+
+\begin{frame}{The frame title over 2 lines \\ logo still works!}
+  Wrap long frame titles with \inlinecode{\\\\}. Logos and footer stay in place.
+
+  \vspace{0.4em}
+  \begin{columns}
+    \begin{column}{0.48\columnwidth}
+      \begin{block}{Left column}
+        Use \inlinecode{columns} + \inlinecode{column} to split content side by side.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\columnwidth}
+      \begin{block}{Right column}
+        Column widths are set with \inlinecode{0.48\\columnwidth}.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Watermarks}
+
+\begin{frame}[fragile]{watermark --- footer annotation}
+  \watermark{TODO}
+  \inlinecode{\\watermark[color]\{text\}} places a small badge in the footer
+  to flag work-in-progress slides.
+  The default color is \inlinecode{alert} (adapts to dark/light mode automatically).
+
+  \vspace{0.4em}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Default --- alert color:}
+\begin{codeblock}
+\\watermark\{TODO\}
+\end{codeblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Custom color:}
+\begin{codeblock}
+\\watermark[orange]\{DRAFT\}
+\end{codeblock}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  Place \inlinecode{\\watermark} anywhere inside the \inlinecode{frame} environment.
+  The watermark does not affect the text layout.
+\end{frame}
+
+\subsection{Background Images}
+
+\begin{frame}{bgfig --- overlay image on page}
+  \bgfig{./Graphics/background_title_page_dark.png}{opacity=0.15}{width=0.5\paperwidth}
+
+  \inlinecode{\\bgfig\{file\}\{node opts\}\{img opts\}} places an image relative to the page
+  center without affecting text layout.
+
+  \vspace{0.4em}
+  \begin{itemize}
+    \item \inlinecode{node opts}: \inlinecode{xshift=5cm}, \inlinecode{yshift=-2cm}, \inlinecode{opacity=0.3}
+    \item \inlinecode{img opts}: \inlinecode{width=0.5\\paperwidth}, \inlinecode{height=0.4\\paperheight}
+    \item Overlay specs supported: \inlinecode{\\bgfig<2>\{...\}\{...\}\{...\}}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{The frame title over 2 lines \\  logo still works!}
-  \begin{alertblock}{An alerted block}
-    \begin{enumerate}
-    \item toto
-    \item tata
-    \item tutu
-    \end{enumerate}
-  \end{alertblock}
-\end{frame}
+\subsection{Full-Frame Graphics}
 
-\begin{frame}[fragile]
-  \frametitle{Dark mode}
-  You can compile in \alert{dark mode} using
-\begin{codeblock}
-\\usetheme\alert{[darkmode]}\{C2SM\}
-\end{codeblock}
+% \plainFrameGraphics inserts a plain frame (no chrome) with the image filling the slide
+\plainFrameGraphics{./Graphics/background_title_page_dark.png}
+
+\appendix
+\setbeamertemplate{background}{}  % Clear the background for appendix slides
+% Backup Slides (not counted in total page number)
+\begin{frame}{Backup Slide 1}
+  % Add your backup content here
+  This is a backup slide example.
 \end{frame}
 
 \end{document}
@@ -154,6 +756,6 @@
 %%% Local Variables:
 %%% coding: utf-8
 %%% mode: latex
-%%% TeX-engine: xetex
+%%% TeX-engine: luatex
 %%% TeX-command-extra-options: "-shell-escape"
 %%% End:
